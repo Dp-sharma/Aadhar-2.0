@@ -1,11 +1,95 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign up</title>
+    <title>Sign Up</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
+    <script>
+        function validatePassword() {
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirm-password').value;
+            const errorMessage = document.getElementById('error-message');
+
+            if (password !== confirmPassword) {
+                errorMessage.style.display = 'block';
+                return false;
+            } else {
+                errorMessage.style.display = 'none';
+                return true;
+            }
+        }
+    </script>
 </head>
-<body>
-    This is signup page rendering engine
+
+<body class="bg-gray-50 flex items-center justify-center h-screen">
+    <div class="w-full max-w-sm p-6 bg-white shadow rounded-lg">
+        <div class="flex flex-col items-center">
+            <img src="https://www.sistec.ac.in/assets/common/images/sistec-badge-light.png" alt="SISTec Logo" class="w-100 h-100 mb-4">
+            <h1 class="text-2xl font-bold mb-6">Sign up</h1>
+        </div>
+
+        <form action="/sign-up" method="post" onsubmit="return validatePassword()">
+            <div class="mb-4">
+                <label for="fullName" class="block mb-1"></label>
+                <div class="relative">
+                    <span class="absolute inset-y-0 left-0 flex items-center pl-3">
+                        <i class="ri-user-line"></i>
+                    </span>
+                    <input name="fullName" id="fullName" type="text" placeholder="Full name"
+                        class="w-full pl-10 pr-4 py-2 border rounded-lg focus:ring focus:ring-blue-300 focus:outline-none">
+                </div>
+            </div>
+
+            <div class="mb-4">
+                <label for="email" class="block mb-1"></label>
+                <div class="relative">
+                    <span class="absolute inset-y-0 left-0 flex items-center pl-3">
+                        <i class="ri-mail-line"></i>
+                    </span>
+                    <input name="email" id="email" type="email" placeholder="abc@email.com"
+                        class="w-full pl-10 pr-4 py-2 border rounded-lg focus:ring focus:ring-blue-300 focus:outline-none">
+                </div>
+            </div>
+
+            <div class="mb-4">
+                <label for="password" class="block mb-1"></label>
+                <div class="relative">
+                    <span class="absolute inset-y-0 left-0 flex items-center pl-3">
+                        <i class="ri-lock-line"></i>
+                    </span>
+                    <input name="password" id="password" type="password" placeholder="Your password"
+                        class="w-full pl-10 pr-4 py-2 border rounded-lg focus:ring focus:ring-blue-300 focus:outline-none">
+                </div>
+            </div>
+
+            <div class="mb-6">
+                <label for="confirm-password" class="block mb-1"></label>
+                <div class="relative">
+                    <span class="absolute inset-y-0 left-0 flex items-center pl-3">
+                        <i class="ri-lock-line"></i>
+                    </span>
+                    <input name="confirm-password" id="confirm-password" type="password" placeholder="Confirm password"
+                        class="w-full pl-10 pr-4 py-2 border rounded-lg focus:ring focus:ring-blue-300 focus:outline-none">
+                </div>
+                <p id="error-message" class="text-red-500 text-sm mt-2 hidden">Passwords do not match.</p>
+            </div>
+
+            <button class="w-full flex items-center justify-center bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
+                <span>Sign Up</span>
+                <svg class="w-5 h-5 ml-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                </svg>
+            </button>
+            <p class="mt-4 text-center text-sm text-gray-600">
+                Already have an account?
+                <a href="#" class="text-blue-500 hover:underline">Log in</a>
+            </p>
+        </form>
+    </div>
 </body>
+
 </html>
