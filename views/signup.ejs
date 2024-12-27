@@ -6,75 +6,78 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign Up</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link
-    href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
-    rel="stylesheet"
-/>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
+    <script>
+        function validatePassword() {
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirm-password').value;
+            const errorMessage = document.getElementById('error-message');
+
+            if (password !== confirmPassword) {
+                errorMessage.style.display = 'block';
+                return false;
+            } else {
+                errorMessage.style.display = 'none';
+                return true;
+            }
+        }
+    </script>
 </head>
 
 <body class="bg-gray-50 flex items-center justify-center h-screen">
     <div class="w-full max-w-sm p-6 bg-white shadow rounded-lg">
         <div class="flex flex-col items-center">
-           
-            <img src="data:image/png;base64,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"
-                alt="SISTec Logo" class="w-100 h-100 mb-4">
-
-           
+            <img src="https://www.sistec.ac.in/assets/common/images/sistec-badge-light.png" alt="SISTec Logo" class="w-100 h-100 mb-4">
             <h1 class="text-2xl font-bold mb-6">Sign up</h1>
         </div>
 
-      
-        <form  action="/sign-up" method="post">
-          
+        <form action="/sign-up" method="post" onsubmit="return validatePassword()">
             <div class="mb-4">
-                <label class="relative block">
+                <label for="fullName" class="block mb-1"></label>
+                <div class="relative">
                     <span class="absolute inset-y-0 left-0 flex items-center pl-3">
-                       <i class="ri-user-line"></i>
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M16 14a4 4 0 00-8 0m8 0v1a4 4 0 01-8 0v-1m4-6a4 4 0 100-8 4 4 0 000 8z" />
-                        </svg>
+                        <i class="ri-user-line"></i>
                     </span>
-                    <input name="full-name" type="text" placeholder="Full name"
+                    <input name="fullName" id="fullName" type="text" placeholder="Full name"
                         class="w-full pl-10 pr-4 py-2 border rounded-lg focus:ring focus:ring-blue-300 focus:outline-none">
-                </label>
+                </div>
             </div>
 
-            
             <div class="mb-4">
-                <label class="relative block">
+                <label for="email" class="block mb-1"></label>
+                <div class="relative">
                     <span class="absolute inset-y-0 left-0 flex items-center pl-3">
                         <i class="ri-mail-line"></i>
-                        </svg>
                     </span>
-                    <input  name="email" type="email" placeholder="abc@email.com"
+                    <input name="email" id="email" type="email" placeholder="abc@email.com"
                         class="w-full pl-10 pr-4 py-2 border rounded-lg focus:ring focus:ring-blue-300 focus:outline-none">
-                </label>
+                </div>
             </div>
 
-         
             <div class="mb-4">
-                <label class="relative block">
+                <label for="password" class="block mb-1"></label>
+                <div class="relative">
                     <span class="absolute inset-y-0 left-0 flex items-center pl-3">
                         <i class="ri-lock-line"></i>
-                        </svg>
                     </span>
-                    <input name="password" type="password" placeholder="Your password"
+                    <input name="password" id="password" type="password" placeholder="Your password"
                         class="w-full pl-10 pr-4 py-2 border rounded-lg focus:ring focus:ring-blue-300 focus:outline-none">
-                </label>
+                </div>
             </div>
 
             <div class="mb-6">
-                <label class="relative block">
+                <label for="confirm-password" class="block mb-1"></label>
+                <div class="relative">
                     <span class="absolute inset-y-0 left-0 flex items-center pl-3">
                         <i class="ri-lock-line"></i>
                     </span>
-                    <input  name="confirm-password"  type="password" placeholder="Confirm password"
+                    <input name="confirm-password" id="confirm-password" type="password" placeholder="Confirm password"
                         class="w-full pl-10 pr-4 py-2 border rounded-lg focus:ring focus:ring-blue-300 focus:outline-none">
-                </label>
+                </div>
+                <p id="error-message" class="text-red-500 text-sm mt-2 hidden">Passwords do not match.</p>
             </div>
 
-            <button
-                class="w-full flex items-center justify-center bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
+            <button class="w-full flex items-center justify-center bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
                 <span>Sign Up</span>
                 <svg class="w-5 h-5 ml-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                     stroke="currentColor">
