@@ -1,11 +1,150 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
+    <link rel="stylesheet" href="/styles/style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Aldrich&family=Amaranth:ital,wght@0,400;0,700;1,400;1,700&family=Andada+Pro:ital,wght@0,400..840;1,400..840&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+        <link
+    href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
+    rel="stylesheet"/>
 </head>
+
 <body>
-    This is the home page rendering engine.
+    <main class="wrapper min-h-screen bg-white font-[Poppins]">
+        <nav class="px-12 py-8 flex items-end justify-between relative bg-white text-black">
+            <img src="/media/SISTec-logo.png" class="h-16" alt="SISTec-logo">
+            <div id="nav-links"
+                class="flex gap-16 text-lg font-[gilroy] font-semibold absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                <a href="/views/home.ejs" class="text-black">Home</a>
+                <a href="" class="text-black">Prototype</a>
+                <a href="" class="text-black">Final Report</a>
+                <a href="" class="text-black">About</a>
+                <a href="" class="text-black">Contact</a>
+            </div>
+            <div id="login-singup-links" class="flex gap-8 text-lg font-[montserrat]">
+                <a href="/views/login.ejs" class="border border-black px-4 py-2 rounded-md text-black">Log In</a>
+                <a href="" class="bg-black text-white px-4 py-2 rounded-md">Sign Up</a>
+            </div>
+            <div class="toggleBtn cursor-pointer">
+                <i class="ri-menu-line"></i>
+                <i class="ri-close-large-line"></i>
+            </div>
+        </nav>
+        <div class="drop-down-menu text-lg font-[gilroy] font-semibold">
+            <a href="/views/home.ejs" class="text-black">Home</a>
+            <a href="" class="text-black">Prototype</a>
+            <a href="" class="text-black">Final Report</a>
+            <a href="" class="text-black ">About</a>
+            <a href="" class="text-black ">Contact</a>
+            <a href="/views/login.ejs" class="border border-white px-4 py-2 rounded-md text-black">Log In</a>
+            <a href="" class="bg-blue-500 text-black px-4 py-2 rounded-md">Sign Up</a>
+        </div>
+        <section class="hero-section-main">
+            <div class="hero-section-div bg-[url('/media/header-bg.png')] bg-cover bg-bottom h-[26vw] relative ">
+                <h1 class="font-[aldrich] absolute top-[20%] left-1/2 -translate-x-1/2 -translate-y-1/2 text-4xl text-[#1E2772] uppercase">Welome to event aadhar 2.O</h1>
+            </div>
+            <p class="text-3xl w-[47%] leading-[40px] text-center mx-auto mt-10 text-[#1E2772] font-[Poppins] font-medium">Be part of a revolutionary event! Register now, showcase your prototype, and share your final report to make your mark.</p>
+        </section>
+        <section class="content-section-main py-5 px-16 mt-10 font-[Amaranth] w-full">
+            <h1 id="main-h1" class="capitalize text-3xl font-medium">Who can participate ?</h1>
+
+            <div class="text-box flex justify-between items-center w-full">
+                <div>
+                    <h1 class="text-[#1E2772] text-3xl font-semibold">Eligibility Criteria : </h1>
+                    <p class="font-bold text-2xl w-[80%] mt-3">Institute: Only students currently enrolled at Sagar Institute of Science and Technology (SIST) are eligible to participate.</p>
+                    <p class="font-bold text-2xl mt-8 w-[80%]">Year of Study: This event is exclusively for students in their 1st Year or 2nd Year of academic programs.</p>
+                </div>
+                <div>
+                    <img src="/media/hero-1.png" class="h-96 rounded-xl" alt="">
+                </div>
+            </div>
+
+
+            <div class="text-box flex flex-row-reverse justify-between items-center w-full mt-5 gap-20">
+                <div>
+                    <h1 class="text-[#1E2772] text-3xl font-semibold">Important Note :</h1>
+                    <p class="font-bold text-2xl  mt-3">1.Participants must have a valid SIST student ID to register.</p>
+                    <p class="font-bold text-2xl mt-8 ">2.Ensure your details are accurate and match the official records of SIST during registration.</p>
+                </div>
+
+                <div>
+                    <img src="/media/her0-2.png" class="rounded-xl h-80" alt="">
+                </div>
+                
+            </div>
+
+        </section>
+        <section class=" footer-main bg-[#1E2772] text-white">
+            <div class="footer-upper border-b-2 border-gray-400 p-8 px-24 mt-5 flex justify-between">
+                <div><h1 class="text-2xl font-[Amaranth] mt-4">About</h1></div>
+                <div class="flex flex-col gap-3">
+                    <h1 class="font-[Aldrich] text-xl mt-6 text-gray-400">Partner with us</h1>
+                    <h3>Partnership programs</h3>
+                    <h3>Affiliate program</h3>
+                    <h3>Connectivity partners</h3>
+                    <h3>Promotions and events</h3>
+                    <h3>Integrations</h3>
+                    <h3>Community</h3>
+                    <h3>Loyalty program</h3>
+                </div>
+                <div class="flex flex-col gap-3">
+                    <h1 class="font-[Aldrich] text-xl mt-6 text-gray-400">Support</h1>
+                    <h3>Help Center</h3>
+                    <h3>Contact us</h3>
+                    <h3>Privacy policy</h3>
+                    <h3>Terms of service</h3>
+                    <h3>Trust and safety</h3>
+                    <h3>Accessibility</h3>
+                </div>
+                <div class="flex flex-col gap-3">
+                    <h1 class="font-[Aldrich] text-xl mt-6 text-gray-400 flex flex-col gap-5">Get the app</h1>
+                    <h3>Karcis.com for Android</h3>
+                    <h3>Karcis.com for iOS</h3>
+                    <h3>Mobile site</h3>
+                </div>
+            </div>
+            <div class="footer-lower flex items-center justify-between py-3 px-24">
+                <div>
+                    <i class="ri-twitter-fill text-white text-xl "></i>
+                    <i class="ri-instagram-fill text-white text-xl ml-3"></i>
+                    <i class="ri-facebook-box-fill text-white text-xl ml-3"></i>
+                </div>
+                <div class="flex gap-2">
+                    <i class="ri-copyright-line"></i>
+                    <h3>2020 Karcis incorporated</h3>
+                </div>
+            </div>
+        </section>
+    </main>
+    <script>
+        const toggleBtn = document.querySelector('.toggleBtn');
+        const navLinks = document.getElementById('nav-links');
+        const dropDownMenu = document.querySelector('.drop-down-menu');
+        const menuIcon = document.querySelector('.ri-menu-line');
+        const closeIcon = document.querySelector('.ri-close-large-line');
+        
+        toggleBtn.onclick = () => {
+            dropDownMenu.classList.toggle('open');
+            const isOpen = dropDownMenu.classList.contains('open');
+            if (isOpen) {
+                menuIcon.style.display = 'none';
+                closeIcon.style.display = 'block';
+            } else {
+                menuIcon.style.display = 'block';
+                closeIcon.style.display = 'none';
+            }
+        }
+
+    </script>
 </body>
+
 </html>

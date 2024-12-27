@@ -17,6 +17,11 @@ app.set('view engine', 'ejs');
 
 app.use("/", routes)
 
+app.get('/views/login.ejs', (req, res) => {
+  res.render('login');
+});
+
+
 app.listen(port, () => {
   console.log(`Example app listening on port http://localhost:${port}`)
 })
