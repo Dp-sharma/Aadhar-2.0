@@ -13,6 +13,8 @@ require('dotenv').config();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
+console.log("MongoDB URL:", process.env.MONGODB_URL);
+
 mongoose.connect(process.env.MONGODB_URL)
 console.log('Database connected successfully')
 // Set EJS as the view engine
@@ -25,6 +27,15 @@ app.get('/views/login.ejs', (req, res) => {
   res.render('login');
 });
 
+app.get('/profile', (req, res) => {
+  res.render('profile');
+});
+app.get('/prototype', (req, res) => {
+  res.render('prototype');
+});
+app.get('/finalReport', (req, res) => {
+  res.render('finalReport');
+});
 
 app.listen(port, () => {
   console.log(`Example app listening on port http://localhost:${port}`)

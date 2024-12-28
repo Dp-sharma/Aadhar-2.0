@@ -49,7 +49,7 @@
   .toggleBtn .ri-close-large-line{
     font-size: 30px;
   }
-  #nav-links,#login-singup-links{
+  #nav-links,#login-singup-links,.profile-icon-cont{
     display: none;
   }
 }
@@ -69,6 +69,9 @@
   overflow: hidden;
   z-index: -1;
 }
+.drop-down-menu i{
+  font-size: 30px;
+}
 .drop-down-menu a{
   color: black;
   font-size: 25px;
@@ -86,6 +89,31 @@
   .drop-down-menu a{
     font-size: 22px;
   }
+  #pro-content-con{
+    padding:30px 10px;
+  }
+  #pro-content-con h1{
+    font-size: 18px;
+  }
+  #pro-content-con p{
+    font-size: 20px;
+    line-height: 25px;
+  }
+  #pro-content-con div:nth-child(3) p{
+    width: 100%;
+    margin-top: 5px;
+  }
+  #pro-content-con div:nth-child(3) h1{
+    font-size: 20px;
+  }
+  #pro-content-con .submit-btn{
+    /* background-color: red; */
+    margin-top: 20px;
+  }
+  #pro-content-con a{
+    width: 100%;
+    justify-content: center;
+  }
 }
 
 /* HOME PAGE RESPONSIVE */
@@ -97,11 +125,49 @@
     font-size: 25px ;
     line-height: 34px;
   }
+  #pro-content-con a{
+    width: 57%;
+  }
 }
 @media (max-width: 960px){
   .hero-section-div h1{
     font-size: 25px;
   }
+  .footer-main div img{
+    height: 200px;
+  }
+  .footer-main{
+    padding: 10px 10px;
+  }
+  #pro-content-con{
+    padding:70px;
+  }
+  #pro-content-con h1{
+    font-size: 25px;
+  }
+  #pro-content-con p{
+    font-size: 22px;
+    line-height: 25px;
+  }
+  #pro-content-con div:nth-child(3) p{
+    width: 100%;
+    margin-top: 5px;
+  }
+  #pro-content-con div:nth-child(3) h1{
+    font-size: 25px;
+  }
+  #pro-content-con .submit-btn{
+    /* background-color: red; */
+    margin-top: 60px;
+  }
+  #pro-content-con a{
+    width: 100%;
+    justify-content: center;
+  }
+  .pro-upper-cont-div h1:nth-child(1){
+    font-size: 45px;
+  }
+  
 }
 @media (max-width: 855px){
   
@@ -109,6 +175,31 @@
     font-size: 25px;
     text-align: center;
     top: 10%;
+  }
+  #pro-content-con{
+    padding:50px;
+  }
+  #pro-content-con h1{
+    font-size: 18px;
+  }
+  #pro-content-con p{
+    font-size: 20px;
+    line-height: 25px;
+  }
+  #pro-content-con div:nth-child(3) p{
+    width: 100%;
+    margin-top: 5px;
+  }
+  #pro-content-con div:nth-child(3) h1{
+    font-size: 20px;
+  }
+  #pro-content-con .submit-btn{
+    /* background-color: red; */
+    margin-top: 20px;
+  }
+  #pro-content-con a{
+    width: 100%;
+    justify-content: center;
   }
 }
 @media (max-width: 420px){
@@ -161,6 +252,34 @@
   .footer-lower{
     font-size: 10px;
     gap: 40px;
+  }
+  .footer-main div img{
+    height: 170px;
+  }
+  #pro-content-con{
+    padding:30px 10px;
+  }
+  #pro-content-con h1{
+    font-size: 18px;
+  }
+  #pro-content-con p{
+    font-size: 20px;
+    line-height: 25px;
+  }
+  #pro-content-con div:nth-child(3) p{
+    width: 100%;
+    margin-top: 5px;
+  }
+  #pro-content-con div:nth-child(3) h1{
+    font-size: 20px;
+  }
+  #pro-content-con .submit-btn{
+    /* background-color: red; */
+    margin-top: 20px;
+  }
+  #pro-content-con a{
+    width: 100%;
+    justify-content: center;
   }
 }
 @media (max-width: 800px){
@@ -245,6 +364,62 @@
   }
   
 }
+@media (max-width: 650px){
+  .footer-main div h1{
+    font-size: 15px;
+  }
+  .footer-main .footer-links {
+    margin-top: 10px;
+    /* font-size: 12px; */
+  }
+  #pro-content-con{
+    padding:30px 10px;
+  }
+  #pro-content-con h1{
+    font-size: 18px;
+  }
+  #pro-content-con p{
+    font-size: 20px;
+    line-height: 25px;
+  }
+  #pro-content-con div:nth-child(3) p{
+    width: 100%;
+    margin-top: 5px;
+  }
+  #pro-content-con div:nth-child(3) h1{
+    font-size: 20px;
+  }
+  #pro-content-con .submit-btn{
+    /* background-color: red; */
+    margin-top: 20px;
+  }
+  #pro-content-con a{
+    width: 100%;
+    justify-content: center;
+  }
+
+}
+@media (max-width: 370px){
+  .footer-main div img{
+    height: 100px;
+    margin-top: 40%;
+  }
+  .footer-main .footer-lower{
+    padding: 10px 10px;
+  }
+  .footer-main .footer-lower div:nth-child(1){
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    justify-content: center;
+  }
+  .footer-main .footer-lower div:nth-child(1) i{
+    margin-left: 0px;
+  }
+  .footer-main .footer-lower div:nth-child(2){
+    font-size: 13px;
+  }
+}
 
 /* FORM RESPONSIVE */
 .login-form select {
@@ -285,4 +460,7 @@
     width: 90%;
     margin-top: 20px; 
   }
+}
+.shadow-dark{
+  box-shadow: 0px 7px 10px 0px rgba(0,0,0,0.5);
 }
