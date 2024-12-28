@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express(); 
-const controllers = require('../controllers/login_controller');
+const controllers = require('../controllers/login_signup_controller');
 
 app.get("/",(req, res) => {
     console.log('rendering the home page')
@@ -14,8 +14,9 @@ app.get("/signup",(req, res) => {
     console.log('rendering the signup page')
     res.render("signup");
 });
-console.log("bug marked");
+
 app.post('/sign-up', controllers.Participant_register);
+app.post('/login', controllers.Participant_login);
 
 
 module.exports = app;

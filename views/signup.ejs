@@ -8,18 +8,51 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
     <script>
-        function validatePassword() {
-            const password = document.getElementById('password').value;
-            const confirmPassword = document.getElementById('confirm-password').value;
-            const errorMessage = document.getElementById('error-message');
+        async function handleFormSubmit(event) {
+            event.preventDefault(); // Prevent the form from reloading the page
 
+            const form = event.target;
+            const formData = new FormData(form);
+            const password = formData.get('password');
+            const confirmPassword = formData.get('confirmPassword');
+            const errorMessage = document.getElementById('server-error-message');
+
+            // Validate passwords match
             if (password !== confirmPassword) {
+                errorMessage.textContent = 'Passwords do not match.';
                 errorMessage.style.display = 'block';
-                return false;
-            } else {
-                errorMessage.style.display = 'none';
-                return true;
+                return;
             }
+
+            try {
+    const response = await fetch(form.action, {
+        method: form.method,
+        body: JSON.stringify(Object.fromEntries(formData)),
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    });
+
+    const contentType = response.headers.get('Content-Type');
+
+    if (!response.ok) {
+        if (contentType && contentType.includes('application/json')) {
+            const result = await response.json();
+            throw new Error(result.msg || 'An error occurred.');
+        } else {
+            throw new Error('Unexpected response from the server.');
+        }
+    }
+
+    const result = await response.json();
+    errorMessage.style.display = 'none';
+    window.location.href = result.redirectUrl || '/home';
+} catch (error) {
+    console.error('Error:', error);
+    errorMessage.textContent = error.message;
+    errorMessage.style.display = 'block';
+}
+
         }
     </script>
 </head>
@@ -27,11 +60,12 @@
 <body class="bg-gray-50 flex items-center justify-center h-screen">
     <div class="w-full max-w-sm p-6 bg-white shadow rounded-lg">
         <div class="flex flex-col items-center">
-            <img src="https://www.sistec.ac.in/assets/common/images/sistec-badge-light.png" alt="SISTec Logo" class="w-100 h-100 mb-4">
+            <img src="https://www.sistec.ac.in/assets/common/images/sistec-badge-light.png" alt="SISTec Logo"
+                class="w-100 h-100 mb-4">
             <h1 class="text-2xl font-bold mb-6">Sign up</h1>
         </div>
 
-        <form action="/sign-up" method="post" onsubmit="return validatePassword()">
+        <form action="/sign-up" method="post" onsubmit="handleFormSubmit(event)">
             <div class="mb-4">
                 <label for="fullName" class="block mb-1"></label>
                 <div class="relative">
@@ -65,19 +99,21 @@
                 </div>
             </div>
 
-            <div class="mb-6">
-                <label for="confirm-password" class="block mb-1"></label>
+            <div class="mb-4">
+                <label for="confirmPassword" class="block mb-1"></label>
                 <div class="relative">
                     <span class="absolute inset-y-0 left-0 flex items-center pl-3">
                         <i class="ri-lock-line"></i>
                     </span>
-                    <input name="confirm-password" id="confirm-password" type="password" placeholder="Confirm password"
+                    <input name="confirmPassword" id="confirmPassword" type="password" placeholder="Confirm password"
                         class="w-full pl-10 pr-4 py-2 border rounded-lg focus:ring focus:ring-blue-300 focus:outline-none">
                 </div>
-                <p id="error-message" class="text-red-500 text-sm mt-2 hidden">Passwords do not match.</p>
             </div>
 
-            <button class="w-full flex items-center justify-center bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
+            <p id="server-error-message" class="text-red-500 text-sm mb-4 hidden"></p>
+
+            <button
+                class="w-full flex items-center justify-center bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
                 <span>Sign Up</span>
                 <svg class="w-5 h-5 ml-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                     stroke="currentColor">
@@ -86,7 +122,7 @@
             </button>
             <p class="mt-4 text-center text-sm text-gray-600">
                 Already have an account?
-                <a href="#" class="text-blue-500 hover:underline">Log in</a>
+                <a href="/login" class="text-blue-500 hover:underline">Log in</a>
             </p>
         </form>
     </div>

@@ -9,6 +9,7 @@ const port = 3000
 
 // Middleware
 require('dotenv').config();
+app.use(express.json());
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
@@ -21,9 +22,7 @@ app.set('view engine', 'ejs');
 
 app.use("/", routes)
 
-app.get('/views/login.ejs', (req, res) => {
-  res.render('login');
-});
+
 
 
 app.listen(port, () => {
