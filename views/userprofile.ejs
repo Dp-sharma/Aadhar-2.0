@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Profile</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <style>
+    body {
+  background-color: #1D2A44;
+  font-family: 'Arial', sans-serif;
+  color: #F1F1F1;
+}
+
+.container {
+  background-color: #16223A;
+  border-radius: 15px;
+  padding: 30px;
+  margin-top: 50px;
+}
+
+.form-control {
+  background-color: #1D2A44;
+  border: 1px solid #5A738E;
+  color: black; /* Default text color when input field is not focused */
+}
+
+.form-control:focus {
+  box-shadow: none;
+  border-color: #7F9BB3;
+  color: #F1F1F1; /* Text color when focused */
+}
+
+.profile-button {
+  background-color: #7F9BB3;
+  box-shadow: none;
+  border: none;
+}
+
+.profile-button:hover {
+  background-color: #4F6889;
+}
+
+.profile-button:focus {
+  background-color: #4F6889;
+  box-shadow: none;
+}
+
+.profile-button:active {
+  background-color: #4F6889;
+  box-shadow: none;
+}
+
+.back:hover {
+  color: #7F9BB3;
+  cursor: pointer;
+}
+
+.profile-image {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  margin-top: 30px;
+}
+
+.label {
+  font-weight: bold;
+  margin-top: 10px;
+  color: #7F9BB3;
+}
+
+h3 {
+  text-align: center;
+  color: #A6C1D7;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.row {
+  margin-top: 20px;
+}
+
+.text-black-50 {
+  color: #A6C1D7;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.back-button {
+  cursor: pointer;
+  color: #7F9BB3;
+  font-size: 18px;
+}
+
+.back-button:hover {
+  color: #4F6889;
+}
+
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="flex-column items-center" style="display: flex; flex-direction: column; align-items: center;">
+      <!-- <div class="col-md-4 text-center">
+        <img src="https://i.imgur.com/0eg0aG0.jpg" class="profile-image" alt="Profile Image">
+        <h5 class="font-weight-bold mt-3">John Doe</h5>
+        <span class="text-black-50">john_doe12@bbb.com</span>
+        <span>United States</span>
+      </div> -->
+      <div class="col-md-8">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <div class="d-flex flex-row align-items-center back-button">
+            <i class="fa fa-long-arrow-left mr-1 mb-1"></i>
+            <a href="/prototype">
+
+              <span>Back to Home</span>
+            </a>
+          </div>
+          <h6 class="text-right">Edit Profile</h6>
+        </div>
+        <h3>User Profile</h3>
+        <form>
+          <div class="form-group">
+            <label class="label">Full Name</label>
+            <input type="text" class="form-control" value="<%= user.fullName %>" readonly>
+          </div>
+          <div class="form-group">
+            <label class="label">Email</label>
+            <input type="email" class="form-control" value="<%= user.email %>" readonly>
+          </div>
+          <div class="form-group">
+            <label class="label">Branch</label>
+            <input type="text" class="form-control" value="<%= user.branch %>" readonly>
+          </div>
+          <div class="form-group">
+            <label class="label">Category</label>
+            <input type="text" class="form-control" value="<%= user.category %>" readonly>
+          </div>
+          <div class="form-group">
+            <label class="label">Date of Birth</label>
+            <input type="date" class="form-control"
+              value="<%= user.dob instanceof Date ? user.dob.toISOString().split('T')[0] : user.dob %>" readonly>
+          </div>
+          <div class="form-group">
+            <label class="label">Gender</label>
+            <input type="text" class="form-control" value="<%= user.gender %>" readonly>
+          </div>
+          <div class="form-group">
+            <label class="label">Mobile Number</label>
+            <input type="text" class="form-control" value="<%= user.mobileNo %>" readonly>
+          </div>
+          <div class="form-group">
+            <label class="label">Roll Number</label>
+            <input type="text" class="form-control" value="<%= user.rollNo %>" readonly>
+          </div>
+          <div class="form-group">
+            <label class="label">Section</label>
+            <input type="text" class="form-control" value="<%= user.section %>" readonly>
+          </div>
+          <div class="form-group">
+            <label class="label">Account Created At</label>
+            <input type="text" class="form-control"
+              value="<%= new Date(user.createdAt).toLocaleString() %>" readonly>
+          </div>
+          <div class="form-group">
+            <label class="label">Last Updated At</label>
+            <input type="text" class="form-control"
+              value="<%= new Date(user.updatedAt).toLocaleString() %>" readonly>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

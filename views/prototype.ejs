@@ -13,7 +13,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Abhaya+Libre:wght@400;500;600;700;800&family=Aldrich&family=Amaranth:ital,wght@0,400;0,700;1,400;1,700&family=Andada+Pro:ital,wght@0,400..840;1,400..840&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Abhaya+Libre:wght@400;500;600;700;800&family=Aldrich&family=Amaranth:ital,wght@0,400;0,700;1,400;1,700;1,700&family=Andada+Pro:ital,wght@0,400..840;1,400..840&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
         rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
 </head>
@@ -25,14 +25,17 @@
             <img src="/media/SISTec-logo.png" class="h-16" alt="SISTec-logo">
             <div id="nav-links"
                 class="flex gap-16 text-[20px] font-[gilroy] font-semibold absolute top-[70%] left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                <a href="/views/home.ejs" class="text-black">Home</a>
+                <a href="/home" class="text-black">Home</a>
                 <a href="" class="text-black">Prototype</a>
                 <a href="" class="text-black">Final Report</a>
                 <a href="" class="text-black">About</a>
                 <a href="" class="text-black">Contact</a>
             </div>
             <div class="profile-icon-cont">
-                <i class="ri-user-3-line cursor-pointer text-4xl"></i>
+                <a href="/userProfile">
+
+                    <i class="ri-user-3-line cursor-pointer text-4xl"></i>
+                </a>
             </div>
 
             <div class="toggleBtn cursor-pointer">
@@ -42,7 +45,7 @@
         </nav>
         <div class="drop-down-menu text-lg font-[gilroy] font-semibold">
             <i class="ri-user-3-line mt-5"></i>
-            <a href="/views/home.ejs" class="text-black">Home</a>
+            <a href="/home" class="text-black">Home</a>
             <a href="" class="text-black">Prototype</a>
             <a href="" class="text-black">Final Report</a>
             <a href="" class="text-black ">About</a>
@@ -62,19 +65,27 @@
                 </div>
             </div>
         </div>
-        <Section id="pro-content-con" class="px-32 py-16">
+        <section id="pro-content-con" class="px-32 py-16">
             <div>
                 <h1 class="font-[gilroy] text-3xl font-bold">INSTRUCTIONS :</h1>
-                <p class="font-[gilroy] text-2xl  mt-3 font-medium text-[#1E2772]">"Please uplaod your prototype file to
+                <p class="font-[gilroy] text-2xl mt-3 font-medium text-[#1E2772]">"Please upload your prototype file to
                     Google Drive and share the link below</p>
-                <p class="font-[gilroy] text-2xl mt-1 font-medium text-[#1E2772]">Ensure the link is accesible to anyone
+                <p class="font-[gilroy] text-2xl mt-1 font-medium text-[#1E2772]">Ensure the link is accessible to anyone
                     with the link. "</p>
             </div>
             <div class="mt-10 flex flex-col gap-2">
                 <label for="prototype-link" class="text-[25px] font-semibold font-[gilroy] ">Prototype Link :</label>
-                <input type="text" name="prototype-link" id="prototype-link"
-                    class="w-[100%] text-xl text-black outline-none border bg-gray-200 rounded-md px-6 py-3"
-                    placeholder="(e.g. https://google.drive.com/..)">
+                <!-- Start of form -->
+                <form id="prototypeForm" action="/submit-prototype" method="POST">
+                    <input type="text" name="prototype-link" id="prototype-link"
+                        class="w-[100%] text-xl text-black outline-none border bg-gray-200 rounded-md px-6 py-3"
+                        placeholder="(e.g. https://google.drive.com/..)" required>
+                    <div class="flex items-center justify-center mt-8">
+                        <input type="submit" value="Submit"
+                            class="submit-btn shadow-dark px-16 text-xl font-medium py-3 bg-[#1E2772] text-white rounded-md cursor-pointer">
+                    </div>
+                </form>
+                <!-- End of form -->
             </div>
             <div class="mt-16">
                 <h1 class="font-bold text-3xl">"How to share the link ?"</h1>
@@ -82,12 +93,9 @@
                     click <span><i>'share'</i></span> and set the permission to <span><i>'Anyone with the link can
                             view'</i></span> . "</p>
             </div>
-            <div class=" flex items-center justify-center">
-                <input type="submit" value="Submit"
-                    class="submit-btn shadow-dark mt-16 px-16 text-xl font-medium py-3 bg-[#1E2772] text-white rounded-md cursor-pointer">
-            </div>
-        </Section>
-        <Section class="footer-main bg-[#1E2772] text-white">
+        </section>
+
+        <section class="footer-main bg-[#1E2772] text-white">
             <div class="footer-upper flex justify-between px-32 py-8 border-b border-gray-400">
                 <div>
                     <h1 class="text-xl">Aadhar 2.O</h1>
@@ -120,7 +128,7 @@
                     <h3>2020 Karcis incorporated</h3>
                 </div>
             </div>
-        </Section>
+        </section>
     </main>
 
     <script>
@@ -141,7 +149,6 @@
                 closeIcon.style.display = 'none';
             }
         }
-
     </script>
 </body>
 

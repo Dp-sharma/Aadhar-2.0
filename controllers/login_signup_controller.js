@@ -2,6 +2,7 @@ const Participant = require('../models/participantmodel');
 const bcrypt = require('bcrypt');   
 const { validationResult } = require('express-validator');
 const jwt = require('jsonwebtoken');
+const Blacklist = require('../models/blacklist');
 
 
 const Participant_register = async (req, res, next) => {
@@ -40,12 +41,18 @@ const Participant_register = async (req, res, next) => {
         console.log('Saving the hashed password in user data');
         console.log('Saving the data in the database');
         
-        await newParticipant.save();
+        const participantData = await newParticipant.save();
+        const accessToken = await generateAccessToken({ user:participantData });
+
+        res.cookie("jwtoken",accessToken,{
+            expires:new Date(Date.now()+2340000000),
+            httpOnly:true
+        })
 
         return res.status(200).json({
             success: true,
             msg: 'Participant Registered',
-            redirectUrl: '/'
+            redirectUrl: '/profile'
         });
         
     } catch (error) {
@@ -106,7 +113,7 @@ const Participant_login = async(req,res, next)=>{
             httpOnly:true
         })
         console.log('Participant logged in')
-        res.redirect('/');
+        res.redirect('/profile');
         
     
     } catch (error) {
@@ -117,9 +124,48 @@ const Participant_login = async(req,res, next)=>{
         });
     }
 }
+const Participant_logout = async(req, res) =>{
+    try{
+
+        const token = req.cookies.jwtoken ;
+
+        if (!token) {
+            res.status(400).json({
+                success:false,
+                msg:"you are already logged out"
+            })
+        }
+        // const bearer = token.split(' ');
+        // const bearerToken = bearer[1];
+
+        const newBlacklist = new Blacklist({
+            token:token
+        });
+
+        await newBlacklist.save();
+
+        res.clearCookie('jwtoken', { path: '/' });
+
+        // res.setHeader('Clear-Site-Data', '"cookies","storage"');
+        console.log('your are logged out')
+
+        res.redirect('/login')
+        // return res.status(200).json({
+        //     success: true,
+        //     msg: 'You are logged out!'
+        // });
+
+    }catch(error){
+        return res.status(400).json({
+            success: false,
+            msg: error.message
+        });
+    }
+}
 module.exports = {
     Participant_register,
     Participant_login,
+    Participant_logout,
 };
 
 

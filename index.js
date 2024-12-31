@@ -3,14 +3,15 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const path = require('path');
 const routes = require('./routes/userRoutes')
-console.log("I am running ");
+const cookieParser = require('cookie-parser');
+
 const app = express()
 const port = 3000
 
 // Middleware
 require('dotenv').config();
 app.use(express.json());
-
+app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -26,15 +27,7 @@ app.use("/", routes)
 
 
 
-app.get('/profile', (req, res) => {
-  res.render('profile');
-});
-app.get('/prototype', (req, res) => {
-  res.render('prototype');
-});
-app.get('/finalReport', (req, res) => {
-  res.render('finalReport');
-});
+
 
 app.listen(port, () => {
   console.log(`Example app listening on port http://localhost:${port}`)
