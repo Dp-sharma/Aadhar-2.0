@@ -2,154 +2,156 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="/styles/style.css">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
-        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Abhaya+Libre:wght@400;500;600;700;800&family=Aldrich&family=Amaranth:ital,wght@0,400;0,700;1,400;1,700;1,700&family=Andada+Pro:ital,wght@0,400..840;1,400..840&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-        rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interactive Timeline</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
+
 </head>
 
 <body>
-    <main class="font-[gilroy]">
-        <nav
-            class="px-12 pt-8 pb-3 flex items-end justify-between relative bg-white text-black border-b-2 border-gray-200">
-            <img src="/media/SISTec-logo.png" class="h-16" alt="SISTec-logo">
-            <div id="nav-links"
-                class="flex gap-16 text-[20px] font-[gilroy] font-semibold absolute top-[70%] left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                <a href="/home" class="text-black">Home</a>
-                <a href="" class="text-black">Prototype</a>
-                <a href="" class="text-black">Final Report</a>
-                <a href="" class="text-black">About</a>
-                <a href="" class="text-black">Contact</a>
-            </div>
-            <div class="profile-icon-cont">
-                <a href="/userProfile">
 
-                    <i class="ri-user-3-line cursor-pointer text-4xl"></i>
-                </a>
-            </div>
+  <nav class="px-12 pt-8 pb-3 flex items-end justify-between relative bg-white text-black border-b-2 border-gray-200">
+    <!-- <img src="/media/SISTec-logo.png" class="h-16" alt="SISTec-logo"> -->
+    <div id="nav-links"
+      class="flex gap-16 text-[20px] font-[gilroy] font-semibold absolute top-[70%] left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+      <a href="#" class="text-black">Home</a>
+      <a href="" class="text-black">Prototype</a>
+      <a href="" class="text-black">Final Report</a>
+      <a href="" class="text-black">About</a>
+      <a href="" class="text-black">Contact</a>
+    </div>
+    <div class="profile-icon-cont">
+      <i class="ri-user-3-line cursor-pointer text-4xl"></i>
+    </div>
 
-            <div class="toggleBtn cursor-pointer">
-                <i class="ri-menu-line"></i>
-                <i class="ri-close-large-line"></i>
-            </div>
-        </nav>
-        <div class="drop-down-menu text-lg font-[gilroy] font-semibold">
-            <i class="ri-user-3-line mt-5"></i>
-            <a href="/home" class="text-black">Home</a>
-            <a href="" class="text-black">Prototype</a>
-            <a href="" class="text-black">Final Report</a>
-            <a href="" class="text-black ">About</a>
-            <a href="" class="text-black ">Contact</a>
+    <div class="toggleBtn cursor-pointer">
+      <i class="ri-menu-line"></i>
+      <i class="ri-close-large-line"></i>
+    </div>
+  </nav>
+  <div class="drop-down-menu text-lg font-[gilroy] font-semibold">
+    <i class="ri-user-3-line mt-5"></i>
+    <a href="/views/home.ejs" class="text-black">Home</a>
+    <a href="" class="text-black">Prototype</a>
+    <a href="" class="text-black">Final Report</a>
+    <a href="" class="text-black ">About</a>
+    <a href="" class="text-black ">Contact</a>
+  </div>
+
+
+
+  <div class="timeline-container mt-10">
+    <h2 class="text-4xl font-semibold text-[#3D50DF] text-center text-blue-700">Participate Registration</h2>
+    <div class="timeline mt-10">
+      <!-- Line connecting dots -->
+      <div class="line"></div>
+
+      <!-- Timeline items -->
+      <div class="timeline-item" onclick="toggleInfo(this)">
+        <div class="dot"></div>
+        <div class="text-box">
+          <div class="text text-[#1E2772]">Registration</div>
+          <div class="info-box box1">
+            <form action="">
+              <h2 class="font-medium">Team Details</h2>
+              <label for="team-name">Team name :</label>
+              <div class="inp-cont">
+                <input type="text" name="team-name" id="team-name" placeholder="Enter your team name"
+                  onclick="stopClickPropagation(event)">
+                <button class="border border-black">Submit Team Name</button>
+              </div>
+            </form>
+          </div>
         </div>
+      </div>
 
-        <div class="pro-upper-cont-div">
-            <h1 class="text-4xl font-[Aldrich] text-[#1E2772] text-center mt-16">Share your Prototype</h1>
-            <div class="flex items-center justify-evenly mt-16">
-                <div class="flex flex-col items-center justify-center gap-2">
-                    <a href="" class="px-8 py-5 rounded-full bg-red-200 text-3xl font-[aldrich] font-bold">1</a>
-                    <h1 class="text-xl font-medium">Prototype</h1>
-                </div>
-                <div class="flex flex-col items-center justify-center gap-2">
-                    <a href="" class=" px-7 py-5 rounded-full bg-blue-100 text-3xl font-[aldrich] font-bold ">2</a>
-                    <h1 class="text-xl font-medium">Final Report</h1>
-                </div>
-            </div>
+      <div class="timeline-item" onclick="toggleInfo(this)">
+        <div class="dot"></div>
+        <div class="text-box">
+          <div class="pro-text text text-[#1E2772] flex items-center gap-2">Prototype Upload <span class="text-2xl text-[#3D50DF]"><i> (Image Link)</i></span></div>
+          <div class="info-box box2">
+            <form action="">
+              <h2 class=" flex items-center gap-5 font-semibold">Prototype:<p
+                  class="mt-1 font-light text-lg text-gray-600">A prototype is a basic model of your project.</p>
+              </h2>
+              <a href="" class="inline-block mt-3 text-2xl text-blue-700 ">How to upload prototype ?</a> <br>
+              <label for="prototype-link" class="inline-block mt-5">Prototype Link :</label>
+              <div class="inp-cont">
+                <input type="text" name="prototype-link" id="prototype-link" placeholder="Enter your Prototype Link"
+                  onclick="stopClickPropagation(event)">
+                <button class="border border-black">Submit Prototype Link</button>
+              </div>
+            </form>
+          </div>
         </div>
-        <section id="pro-content-con" class="px-32 py-16">
-            <div>
-                <h1 class="font-[gilroy] text-3xl font-bold">INSTRUCTIONS :</h1>
-                <p class="font-[gilroy] text-2xl mt-3 font-medium text-[#1E2772]">"Please upload your prototype file to
-                    Google Drive and share the link below</p>
-                <p class="font-[gilroy] text-2xl mt-1 font-medium text-[#1E2772]">Ensure the link is accessible to anyone
-                    with the link. "</p>
-            </div>
-            <div class="mt-10 flex flex-col gap-2">
-                <label for="prototype-link" class="text-[25px] font-semibold font-[gilroy] ">Prototype Link :</label>
-                <!-- Start of form -->
-                <form id="prototypeForm" action="/submit-prototype" method="POST">
-                    <input type="text" name="prototype-link" id="prototype-link"
-                        class="w-[100%] text-xl text-black outline-none border bg-gray-200 rounded-md px-6 py-3"
-                        placeholder="(e.g. https://google.drive.com/..)" required>
-                    <div class="flex items-center justify-center mt-8">
-                        <input type="submit" value="Submit"
-                            class="submit-btn shadow-dark px-16 text-xl font-medium py-3 bg-[#1E2772] text-white rounded-md cursor-pointer">
-                    </div>
-                </form>
-                <!-- End of form -->
-            </div>
-            <div class="mt-16">
-                <h1 class="font-bold text-3xl">"How to share the link ?"</h1>
-                <p class="text-2xl w-[60%] mt-3 text-[#1E2772] font-medium">" After uploading your file to Google Drive,
-                    click <span><i>'share'</i></span> and set the permission to <span><i>'Anyone with the link can
-                            view'</i></span> . "</p>
-            </div>
-        </section>
+      </div>
 
-        <section class="footer-main bg-[#1E2772] text-white">
-            <div class="footer-upper flex justify-between px-32 py-8 border-b border-gray-400">
-                <div>
-                    <h1 class="text-xl">Aadhar 2.O</h1>
-                    <div class="footer-links flex flex-col mt-10 gap-1 text-lg font-light">
-                        <a href="">Prize</a><a href="">Schedule</a><a href="">Rules</a>
-                    </div>
-                </div>
-                <div>
-                    <img src="/media/bottom-logo.png" alt="">
-                </div>
-                <div>
-                    <h1 class="text-xl">HELP</h1>
-                    <div class="footer-links flex flex-col mt-8 text-lg gap-1 font-light">
-                        <a href="">About</a>
-                        <a href="">Growers</a>
-                        <a href="">Merchants</a>
-                        <a href="">Partners</a>
-                        <a href="">Contact</a>
-                    </div>
-                </div>
-            </div>
-            <div class="footer-lower flex items-center justify-between py-3 px-24">
-                <div>
-                    <i class="ri-twitter-fill text-white text-xl "></i>
-                    <i class="ri-instagram-fill text-white text-xl ml-3"></i>
-                    <i class="ri-facebook-box-fill text-white text-xl ml-3"></i>
-                </div>
-                <div class="flex gap-2">
-                    <i class="ri-copyright-line"></i>
-                    <h3>2020 Karcis incorporated</h3>
-                </div>
-            </div>
-        </section>
-    </main>
+      <div class="timeline-item " onclick="toggleInfo(this)">
+        <div class="dot"></div>
+        <div class="text-box">
+          <div class="text text-[#1E2772]">Final Report</div>
+          <div class="info-box box3">
+            <form action="">
+              <h2 class="flex items-center gap-5 font-semibold">Final Report :<p
+                  class="mt-1 font-light text-lg text-gray-600">A final report is a document that explains the results
+                  of a project.</p>
+              </h2>
+              <a href="" class="inline-block mt-3 text-2xl text-blue-700 ">How to upload Final Report ?</a>
+              <button class="sample-rep border border-black">Download Sample Report</button> <br>
+              <label for="Final-Report-link" class="inline-block mt-5">Final Report Link :</label>
+              <div class="inp-cont">
+                <input type="text" name="Final-Report-link" id="Final-Report-link"
+                  placeholder="Enter your Final Report Link" onclick="stopClickPropagation(event)">
+                <button class="border border-black">Submit Final Report </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
-    <script>
-        const toggleBtn = document.querySelector('.toggleBtn');
-        const navLinks = document.getElementById('nav-links');
-        const dropDownMenu = document.querySelector('.drop-down-menu');
-        const menuIcon = document.querySelector('.ri-menu-line');
-        const closeIcon = document.querySelector('.ri-close-large-line');
+  <script>
 
-        toggleBtn.onclick = () => {
-            dropDownMenu.classList.toggle('open');
-            const isOpen = dropDownMenu.classList.contains('open');
-            if (isOpen) {
-                menuIcon.style.display = 'none';
-                closeIcon.style.display = 'block';
-            } else {
-                menuIcon.style.display = 'block';
-                closeIcon.style.display = 'none';
-            }
+    const toggleBtn = document.querySelector('.toggleBtn');
+    const navLinks = document.getElementById('nav-links');
+    const dropDownMenu = document.querySelector('.drop-down-menu');
+    const menuIcon = document.querySelector('.ri-menu-line');
+    const closeIcon = document.querySelector('.ri-close-large-line');
+
+    toggleBtn.onclick = () => {
+      dropDownMenu.classList.toggle('open');
+      const isOpen = dropDownMenu.classList.contains('open');
+      if (isOpen) {
+        menuIcon.style.display = 'none';
+        closeIcon.style.display = 'block';
+      } else {
+        menuIcon.style.display = 'block';
+        closeIcon.style.display = 'none';
+      }
+    }
+
+
+    function toggleInfo(element) {
+      // Close all other info boxes
+      document.querySelectorAll('.timeline-item').forEach(item => {
+        if (item !== element) {
+          item.classList.remove('active');
         }
-    </script>
+      });
+
+      // Toggle the clicked info box
+      element.classList.toggle('active');
+    }
+
+    // Prevent click event from closing the info box when interacting with input field
+    function stopClickPropagation(event) {
+      event.stopPropagation();
+    }
+  </script>
 </body>
 
 </html>
