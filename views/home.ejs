@@ -5,7 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <title>Document</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="/styles/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
+    
     <link rel="stylesheet" href="/styles/style.css">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
     
@@ -18,8 +22,18 @@
         href="https://fonts.googleapis.com/css2?family=Abhaya+Libre:wght@400;500;600;700;800&family=Aldrich&family=Amaranth:ital,wght@0,400;0,700;1,400;1,700&family=Andada+Pro:ital,wght@0,400..840;1,400..840&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="/styles/timeline.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Abhaya+Libre:wght@400;500;600;700;800&family=Aldrich&family=Amaranth:ital,wght@0,400;0,700;1,400;1,700&family=Andada+Pro:ital,wght@0,400..840;1,400..840&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="/styles/timeline.css">
 </head>
 <body>
+    <div class="home-wrapper font-[gilroy] bg-white min-h-screen pb-5">
+        <nav
+            class="px-12  pb-3 flex items-end justify-between relative bg-white text-black border-b-2 border-gray-200">
+            <img src="/media/Final Logo JPG.jpg" class="h-20" alt="SISTec-logo">
     <div class="home-wrapper font-[gilroy] bg-white min-h-screen pb-5">
         <nav
             class="px-12  pb-3 flex items-end justify-between relative bg-white text-black border-b-2 border-gray-200">
@@ -172,7 +186,19 @@
                     <img src="/media/cyber-theme.png" alt="">
                     <h1 class="text-[18px] sm:text-[23px] leading-[25px] font-medium text-[#262D4D] text-center">Cybersecurity and Banking Innovation</h1>
                     <p class="text-center font-medium leading-[17px]">"Securing trust, driving innovation in the future of banking."</p>
+                <!-- Theme Card 6 -->
+                <div class="theme-card hover:scale-[1.05] h-72 w-full sm:w-[calc(50%-16px)] lg:w-[calc(33.33%-16px)] p-4 border-2 border-black rounded-md bg-[#D4EAFFAF] flex flex-col items-center justify-center transition-all gap-4">
+                    <img src="/media/cyber-theme.png" alt="">
+                    <h1 class="text-[18px] sm:text-[23px] leading-[25px] font-medium text-[#262D4D] text-center">Cybersecurity and Banking Innovation</h1>
+                    <p class="text-center font-medium leading-[17px]">"Securing trust, driving innovation in the future of banking."</p>
                 </div>
+            </div>
+            
+        
+            <!-- Timeline Section -->
+            <div class="mt-14 flex flex-col items-center gap-2">
+                <h1 class="text-[#3D56F0] text-3xl sm:text-4xl font-bold text-center">Time Line for Aadhar 2.O</h1>
+                <p class="text-lg sm:text-xl w-[80%] sm:w-[45%] text-center leading-[25px] font"><i>Follow these simple steps to join the Samadhan 1.0 Hackathon and be a part of an exciting journey towards innovation!</i></p>
             </div>
             
         
@@ -186,11 +212,22 @@
                 <div class="timeline-card">
                     <h1 class="text-2xl font-semibold text-center">1. Register online </h1>
                     <p class="text-xl mt-3 text-center ">Visit the official website and fill in your details, including your name, email, contact number, and college name. Don’t forget to register your team if you have one!</p>
+        
+            <div class="steps-cont w-full min-h-72 mt-8 p-5 flex justify-between">
+                <div class="timeline-card">
+                    <h1 class="text-2xl font-semibold text-center">1. Register online </h1>
+                    <p class="text-xl mt-3 text-center ">Visit the official website and fill in your details, including your name, email, contact number, and college name. Don’t forget to register your team if you have one!</p>
                 </div>
                 <div class="timeline-card">
                     <h1 class="text-2xl text-center font-semibold">2. Submit your prototype  </h1>
                     <p class="text-xl mt-3 text-center ">After registration, prepare and submit your presentation, summarizing your project idea, objectives, and plan. This will be used for the initial evaluation.</p>
+                <div class="timeline-card">
+                    <h1 class="text-2xl text-center font-semibold">2. Submit your prototype  </h1>
+                    <p class="text-xl mt-3 text-center ">After registration, prepare and submit your presentation, summarizing your project idea, objectives, and plan. This will be used for the initial evaluation.</p>
                 </div>
+                <div class="timeline-card">
+                    <h1 class="text-2xl text-center font-semibold">3. Final Report  </h1>
+                    <p class="text-xl mt-3 text-center ">Present your final solution to the panel of judges. Be prepared to explain your thought process, challenges faced, and how your solution addresses the problem.</p>
                 <div class="timeline-card">
                     <h1 class="text-2xl text-center font-semibold">3. Final Report  </h1>
                     <p class="text-xl mt-3 text-center ">Present your final solution to the panel of judges. Be prepared to explain your thought process, challenges faced, and how your solution addresses the problem.</p>
@@ -211,7 +248,11 @@
     
                 <div id="faq-container" class="mt-8 space-y-4 md:mt-16">
                     <!-- FAQ items will be inserted here -->
+    
+                <div id="faq-container" class="mt-8 space-y-4 md:mt-16">
+                    <!-- FAQ items will be inserted here -->
                 </div>
+    
     
             </div>
         </section>
