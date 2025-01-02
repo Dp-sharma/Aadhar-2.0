@@ -10,12 +10,12 @@ const  Status  = require("../middleware/status");
 
 app.get("/",(req, res) => {
     console.log('rendering the home page')
-    res.render("home");
+    res.render("home.ejs");
 });
 
 app.get("/home",(req, res) => {
     console.log('rendering the home page')
-    res.render("home");
+    res.render("home.ejs");
 });
 app.get("/login",(req, res) => {
     console.log('rendering the login page')
