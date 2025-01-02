@@ -499,7 +499,7 @@
 
   .text-box .info-box form .inp-cont button {
     padding: 5px 10px;
-    width: 50%;
+    width: 100%;
   }
 
   .text-box .info-box {
@@ -1090,6 +1090,7 @@
   margin-left: 20px;
 }
 
+
 /* General body styling */
 body {
   font-family: Arial, sans-serif;
@@ -1324,7 +1325,7 @@ opacity: 1;
     margin-top: 0;
     text-align: center;
   }
-  /* #date-box button{
+    /* #date-box button{
     padding: 2px 15px;
     font-size: 20px;
   } */
