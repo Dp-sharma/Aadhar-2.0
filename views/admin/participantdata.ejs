@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Participant Data</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-900 text-gray-100 font-sans">
+  <div class="container mx-auto p-4">
+    <h1 class="text-2xl font-bold text-center mb-6">Participant Data</h1>
+    <div class="overflow-x-auto">
+      <table class="w-full table-auto border-collapse border border-gray-700">
+        <thead>
+          <tr class="bg-gray-800">
+            <th class="border border-gray-700 px-4 py-2">ID</th>
+            <th class="border border-gray-700 px-4 py-2">Gender</th>
+            <th class="border border-gray-700 px-4 py-2">Name</th>
+            <th class="border border-gray-700 px-4 py-2">Email</th>
+            <th class="border border-gray-700 px-4 py-2">Year</th>
+            <th class="border border-gray-700 px-4 py-2">Branch</th>
+            <th class="border border-gray-700 px-4 py-2">Section</th>
+            <th class="border border-gray-700 px-4 py-2">Roll No</th>
+            <th class="border border-gray-700 px-4 py-2">Category</th>
+            <th class="border border-gray-700 px-4 py-2">Contact</th>
+            <th class="border border-gray-700 px-4 py-2">Team Member Name</th>
+            <th class="border border-gray-700 px-4 py-2">Team Member Branch</th>
+            <th class="border border-gray-700 px-4 py-2">Team Member Email</th>
+            <th class="border border-gray-700 px-4 py-2">Team Member Roll No</th>
+            <th class="border border-gray-700 px-4 py-2">Team Member Gender</th>
+            <th class="border border-gray-700 px-4 py-2">Team Member Year</th>
+            <th class="border border-gray-700 px-4 py-2">Team Member Section</th>
+            <th class="border border-gray-700 px-4 py-2">Team Member Mobile No</th>
+            <th class="border border-gray-700 px-4 py-2">Team Member Category</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% participantData.forEach(participant => { %>
+            <% const maxMembers = Math.max(participant.teamMembers?.length || 0, 1); %>
+            <% for (let i = 0; i < maxMembers; i++) { %>
+              <tr class="<%= i % 2 === 0 ? 'bg-gray-700' : 'bg-gray-800' %>">
+                <% if (i === 0) { %>
+                  <td rowspan="<%= maxMembers %>" class="border border-gray-700 px-4 py-2"><%= participant._id %></td>
+                  <td rowspan="<%= maxMembers %>" class="border border-gray-700 px-4 py-2"><%= participant.gender %></td>
+                  <td rowspan="<%= maxMembers %>" class="border border-gray-700 px-4 py-2"><%= participant.fullName %></td>
+                  <td rowspan="<%= maxMembers %>" class="border border-gray-700 px-4 py-2"><%= participant.email %></td>
+                  <td rowspan="<%= maxMembers %>" class="border border-gray-700 px-4 py-2"><%= participant.year %></td>
+                  <td rowspan="<%= maxMembers %>" class="border border-gray-700 px-4 py-2"><%= participant.branch %></td>
+                  <td rowspan="<%= maxMembers %>" class="border border-gray-700 px-4 py-2"><%= participant.section %></td>
+                  <td rowspan="<%= maxMembers %>" class="border border-gray-700 px-4 py-2"><%= participant.rollNo %></td>
+                  <td rowspan="<%= maxMembers %>" class="border border-gray-700 px-4 py-2"><%= participant.category %></td>
+                  <td rowspan="<%= maxMembers %>" class="border border-gray-700 px-4 py-2"><%= participant.mobileNo %></td>
+                <% } %>
+                <td class="border border-gray-700 px-4 py-2"><%= participant.teamMembers?.[i]?.fullName || "N/A" %></td>
+                <td class="border border-gray-700 px-4 py-2"><%= participant.teamMembers?.[i]?.branch || "N/A" %></td>
+                <td class="border border-gray-700 px-4 py-2"><%= participant.teamMembers?.[i]?.email || "N/A" %></td>
+                <td class="border border-gray-700 px-4 py-2"><%= participant.teamMembers?.[i]?.rollNo || "N/A" %></td>
+                <td class="border border-gray-700 px-4 py-2"><%= participant.teamMembers?.[i]?.gender || "N/A" %></td>
+                <td class="border border-gray-700 px-4 py-2"><%= participant.teamMembers?.[i]?.year || "N/A" %></td>
+                <td class="border border-gray-700 px-4 py-2"><%= participant.teamMembers?.[i]?.section || "N/A" %></td>
+                <td class="border border-gray-700 px-4 py-2"><%= participant.teamMembers?.[i]?.mobileNo || "N/A" %></td>
+                <td class="border border-gray-700 px-4 py-2"><%= participant.teamMembers?.[i]?.category || "N/A" %></td>
+              </tr>
+            <% } %>
+          <% }); %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</body>
+</html>

@@ -47,6 +47,11 @@ const participantSchema = mongoose.Schema({
         type: String,
         enum: ['General', 'OBC', 'SC', 'ST', 'Other'],
     },
+    TeamName:{
+        type: String,
+        trim: true,
+        
+    },
     googleDriveLink: {
         type: String,
         trim: true,

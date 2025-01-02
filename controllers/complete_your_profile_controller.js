@@ -86,7 +86,7 @@ const updateProfile = async (req, res) => {
         //     redirectUrl: '/prototype'
         // });
         // redirect to the /prototype page
-        res.redirect('/prototype');
+        res.redirect('/login');
     } catch (error) {
         console.log(error);
         return res.status(500).json({
@@ -100,7 +100,7 @@ const updateProfile = async (req, res) => {
 // Function to generate access token
 const generateAccessToken = async (user) => {
     console.log('ACCESS_TOKEN_SECRET:', process.env.ACCESS_TOKEN_SECRET);  // Log the secret key for debugging
-
+    
     if (!process.env.ACCESS_TOKEN_SECRET) {
         throw new Error('ACCESS_TOKEN_SECRET is not defined');
     }
@@ -118,9 +118,10 @@ const generateAccessToken = async (user) => {
         rollNo: user.rollNo,
         section: user.section,
     };
-
+    
     // Generate the token
     const token = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "2h" });
+    console.log("Token Function  Executed");
     return token;
 };
 

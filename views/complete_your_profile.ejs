@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Complete Profile</title>
     <link rel="stylesheet" href="/styles/style.css">
+    <link rel="stylesheet" href="/styles/profilepagestyle.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
         integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
@@ -21,7 +22,7 @@
 <body style="background-color: #e3ecf6;">
     <div class="form-container min-h-screen w-full p-7">
         <!-- Navbar -->
-        <div class="flex items-center justify-between w-full">
+        <div class="flex items-center justify-between w-full profile-nav">
             <img src="/media/Final Logo.png" alt="Logo" style="height: 100px;">
             <p class="text-4xl text-center flex-grow">Complete your profile</p>
         </div>
@@ -41,33 +42,33 @@
 
             <!-- Team Lead Details -->
             <p class="text-4xl text-center mb-14">Team Lead Details</p>
-            <div class="flex justify-between mb-8">
-                <div class="flex flex-col gap-3 w-[30%]">
+            <div class="flex justify-between mb-8 horizontal-row">
+                <div class="flex flex-col gap-3 input-div">
                     <label for="fullName" class="text-xl">Full Name :</label>
                     <input type="text" name="fullName" id="fullName"
                         class="text-xl text-black outline-none border bg-gray-200 rounded-md px-4 py-2"
                         value="<%= user ? user.fullName : '' %>" placeholder="Fetched by Database" readonly>
                 </div>
-                <div class="flex flex-col gap-3 w-[30%]">
+                <div class="flex flex-col gap-3 input-div">
                     <label for="rollNo" class="text-xl">Enrollment Number :</label>
                     <input required type="text" name="rollNo" id="rollNo"
                         class="text-xl text-black outline-none border bg-gray-200 rounded-md px-4 py-2"
                         placeholder="Enter your Enrollment Number">
                 </div>
-                <div class="flex flex-col gap-3 w-[30%]">
-                    <label for="gender" class="text-xl">Gender:</label>
+                <div class="flex flex-col gap-3 input-div">
+                    <label for="gender" class="text-xl">Pronouns:</label>
                     <select id="gender" name="gender"
                         class="text-xl text-black outline-none border bg-gray-200 rounded-md px-4 py-2">
                         <option value="" disabled selected>Select Gender</option>
                         <option value="Mr.">Mr.</option>
-                        <option value="Mrs.">Mrs.</option>
+                        <option value="Mrs.">Ms.</option>
                     </select>
                 </div>
             </div>
 
             <!-- Additional Fields -->
-            <div class="flex justify-between mb-8">
-                <div class="flex flex-col gap-3 w-[30%]">
+            <div class="flex justify-between mb-8 horizontal-row">
+                <div class="flex flex-col gap-3 input-div">
                     <label for="year" class="text-xl">Year :</label>
                     <select id="year" name="year"
                         class="text-xl text-black outline-none border bg-gray-200 rounded-md px-4 py-2">
@@ -76,7 +77,7 @@
                         <option value="2nd">2nd Year</option>
                     </select>
                 </div>
-                <div class="flex flex-col gap-3 w-[30%]">
+                <div class="flex flex-col gap-3 input-div">
                     <label for="branch" class="text-xl">Branch :</label>
                     <select id="branch" name="branch"
                         class="text-xl text-black outline-none border bg-gray-200 rounded-md px-4 py-2">
@@ -90,7 +91,7 @@
                         <option value="ece">ECE</option>
                     </select>
                 </div>
-                <div class="flex flex-col gap-3 w-[30%]">
+                <div class="flex flex-col gap-3 input-div">
                     <label for="section" class="text-xl">Section :</label>
                     <select id="section" name="section"
                         class="text-xl text-black outline-none border bg-gray-200 rounded-md px-4 py-2">
@@ -103,26 +104,27 @@
                 </div>
             </div>
 
-            <div class="flex justify-between mb-8">
-                <div class="flex flex-col gap-3 w-[30%]">
+            <div class="flex justify-between mb-8 horizontal-row">
+                <div class="flex flex-col gap-3 input-div">
                     <label for="email" class="text-xl">Email :</label>
                     <input type="text" name="email" id="email"
                         class="text-xl text-black outline-none border bg-gray-200 rounded-md px-4 py-2"
                         value="<%= user ? user.email : '' %>" placeholder="Fetched by Database" readonly>
                 </div>
-                <div class="flex flex-col gap-3 w-[30%]">
-                    <label for="mobileNo" class="text-xl">Mobile Number :</label>
+                <div class="flex flex-col gap-3 input-div">
+                    <label for="mobileNo" class="text-xl">Contact Number :</label>
                     <input required type="text" name="mobileNo" id="mobileNo"
                         class="text-xl text-black outline-none border bg-gray-200 rounded-md px-4 py-2"
                         placeholder="Enter your Mobile Number">
                 </div>
-                <div class="flex flex-col gap-3 w-[30%]">
+                <div class="flex flex-col gap-3 input-div">
                     <label for="category" class="text-xl">Category :</label>
                     <select id="category" name="category"
                         class="text-xl text-black outline-none border bg-gray-200 rounded-md px-4 py-2">
                         <option value="" disabled selected>Select Category</option>
                         <option value="General">General</option>
-                        <option value="SC/ST">SC/ST</option>
+                        <option value="SC/ST">SC</option>
+                        <option value="SC/ST">ST</option>
                         <option value="OBC">OBC</option>
                     </select>
                 </div>
@@ -134,21 +136,21 @@
             <div id="teamMemberDetails" class="hidden">
                 <p class="text-4xl text-center m-14">Team Member Details</p>
 
-                <div class="flex justify-between mb-8">
-                    <div class="flex flex-col gap-3 w-[30%]">
+                <div class="flex justify-between mb-8 horizontal-row">
+                    <div class="flex flex-col gap-3 input-div">
                         <label for="teamMembers[0].fullName" class="text-xl">Full Name :</label>
-                        <input required type="text" name="teamMembers[0].fullName" id="teamMembers[0].fullName"
+                        <input  type="text" name="teamMembers[0].fullName" id="teamMembers[0].fullName memberName"
                             class="text-xl text-black outline-none border bg-gray-200 rounded-md px-4 py-2"
                             placeholder="Enter Team Member Full Name">
                     </div>
-                    <div class="flex flex-col gap-3 w-[30%]">
+                    <div class="flex flex-col gap-3  input-div">
                         <label for="teamMembers[0].rollNo" class="text-xl">Enrollment Number :</label>
-                        <input required type="text" name="teamMembers[0].rollNo" id="teamMembers[0].rollNo"
+                        <input  type="text" name="teamMembers[0].rollNo" id="teamMembers[0].rollNo"
                             class="text-xl text-black outline-none border bg-gray-200 rounded-md px-4 py-2"
                             placeholder="Enter Team Member Enrollment Number">
                     </div>
-                    <div class="flex flex-col gap-3 w-[30%]">
-                        <label for="teamMembers[0].gender" class="text-xl">Gender:</label>
+                    <div class="flex flex-col gap-3 input-div">
+                        <label for="teamMembers[0].gender" class="text-xl">Pronouns:</label>
                         <select name="teamMembers[0].gender"
                             class="text-xl text-black outline-none border bg-gray-200 rounded-md px-4 py-2">
                             <option value="" disabled selected>Select Gender</option>
@@ -158,8 +160,8 @@
                     </div>
                 </div>
 
-                <div class="flex justify-between mb-8">
-                    <div class="flex flex-col gap-3 w-[30%]">
+                <div class="flex justify-between mb-8 horizontal-row">
+                    <div class="flex flex-col gap-3 input-div">
                         <label for="teamMembers[0].year" class="text-xl">Year :</label>
                         <select name="teamMembers[0].year"
                             class="text-xl text-black outline-none border bg-gray-200 rounded-md px-4 py-2">
@@ -168,7 +170,7 @@
                             <option value="2nd">2nd Year</option>
                         </select>
                     </div>
-                    <div class="flex flex-col gap-3 w-[30%]">
+                    <div class="flex flex-col gap-3 input-div">
                         <label for="teamMembers[0].branch" class="text-xl">Branch :</label>
                         <select name="teamMembers[0].branch"
                             class="text-xl text-black outline-none border bg-gray-200 rounded-md px-4 py-2">
@@ -182,7 +184,7 @@
                             <option value="ece">ECE</option>
                         </select>
                     </div>
-                    <div class="flex flex-col gap-3 w-[30%]">
+                    <div class="flex flex-col gap-3 input-div">
                         <label for="teamMembers[0].section" class="text-xl">Section :</label>
                         <select name="teamMembers[0].section"
                             class="text-xl text-black outline-none border bg-gray-200 rounded-md px-4 py-2">
@@ -195,26 +197,27 @@
                     </div>
                 </div>
 
-                <div class="flex justify-between mb-8">
-                    <div class="flex flex-col gap-3 w-[30%]">
+                <div class="flex justify-between mb-8 horizontal-row">
+                    <div class="flex flex-col gap-3 input-div">
                         <label for="teamMembers[0].email" class="text-xl">Email :</label>
-                        <input required type="text" name="teamMembers[0].email" id="teamMembers[0].email"
+                        <input  type="text" name="teamMembers[0].email" id="teamMembers[0].email"
                             class="text-xl text-black outline-none border bg-gray-200 rounded-md px-4 py-2"
                             placeholder="Enter Team Member Email">
                     </div>
-                    <div class="flex flex-col gap-3 w-[30%]">
-                        <label for="teamMembers[0].mobileNo" class="text-xl">Mobile Number :</label>
-                        <input required type="text" name="teamMembers[0].mobileNo" id="teamMembers[0].mobileNo"
+                    <div class="flex flex-col gap-3 input-div">
+                        <label for="teamMembers[0].mobileNo" class="text-xl">Contact Number :</label>
+                        <input  type="text" name="teamMembers[0].mobileNo" id="teamMembers[0].mobileNo"
                             class="text-xl text-black outline-none border bg-gray-200 rounded-md px-4 py-2"
                             placeholder="Enter Team Member Mobile Number">
                     </div>
-                    <div class="flex flex-col gap-3 w-[30%]">
+                    <div class="flex flex-col gap-3 input-div">
                         <label for="teamMembers[0].category" class="text-xl">Category :</label>
                         <select name="teamMembers[0].category"
                             class="text-xl text-black outline-none border bg-gray-200 rounded-md px-4 py-2">
                             <option value="" disabled selected>Select Category</option>
                             <option value="General">General</option>
-                            <option value="SC/ST">SC/ST</option>
+                            <option value="SC/ST">SC</option>
+                            <option value="SC/ST">ST</option>
                             <option value="OBC">OBC</option>
                         </select>
                     </div>
@@ -234,14 +237,21 @@
     </div>
 
     <script>
+
         // Get references to the dropdown and forms
         const numMembersSelect = document.getElementById('numMembers');
         const teamMemberDetails = document.getElementById('teamMemberDetails');
-
+        const memberName = document.getElementById('input-div');
+        // document.getElementsByClassName(memberName)
+        
         // Event listener to toggle visibility based on selected number of team members
         numMembersSelect.addEventListener('change', () => {
             if (numMembersSelect.value === '2') {
+                console.log(memberName);
                 teamMemberDetails.style.display = 'block';
+                // teamMembersfullName.removeAttribute("required"); 
+                console.log(teamMemberDetails);
+                
             } else {
                 teamMemberDetails.style.display = 'none';
             }

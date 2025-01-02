@@ -22,6 +22,7 @@ const profile_complete = async(req, res, next) => {
         const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
         contact  = decoded.user.mobileNo; // Attach user info to the request object
         if (contact) {
+            console.log("I am not thorwing error");
             res.redirect('/prototype');
         } 
         else{

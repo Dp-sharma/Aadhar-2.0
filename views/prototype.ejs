@@ -2,154 +2,252 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="/styles/style.css">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
-        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Abhaya+Libre:wght@400;500;600;700;800&family=Aldrich&family=Amaranth:ital,wght@0,400;0,700;1,400;1,700;1,700&family=Andada+Pro:ital,wght@0,400..840;1,400..840&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-        rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interactive Timeline</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="/styles/style.css">
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
 </head>
+<script>
+  // Generic form submission handler
+  async function handleFormSubmit(event) {
+    event.preventDefault();
+
+    const form = event.target;
+    const formData = new FormData(form);
+    const data = Object.fromEntries(formData.entries());
+    const errorMessage = form.querySelector('.error-message') || document.createElement('p');
+    const successMessage = form.querySelector('.success-message') || document.createElement('p');
+
+    // Ensure error and success message containers exist
+    if (!form.querySelector('.error-message')) {
+      errorMessage.classList.add('error-message', 'text-red-500', 'mt-2');
+      form.appendChild(errorMessage);
+    }
+
+    if (!form.querySelector('.success-message')) {
+      successMessage.classList.add('success-message', 'text-green-500', 'mt-2');
+      form.appendChild(successMessage);
+    }
+
+    // Clear previous messages
+    errorMessage.textContent = '';
+    successMessage.textContent = '';
+
+    try {
+      const response = await fetch(form.action, {
+        method: form.method,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+
+      const contentType = response.headers.get('Content-Type');
+
+      if (!response.ok) {
+        if (contentType && contentType.includes('application/json')) {
+          const result = await response.json();
+          throw new Error(result.msg || 'An error occurred while processing your request.');
+        } else {
+          throw new Error('Unexpected response from the server.');
+        }
+      }
+
+      const result = await response.json();
+      successMessage.textContent = result.msg || 'Submitted successfully!';
+    } catch (error) {
+      errorMessage.textContent = error.message;
+    }
+  }
+</script>
 
 <body>
-    <main class="font-[gilroy]">
-        <nav
-            class="px-12 pt-8 pb-3 flex items-end justify-between relative bg-white text-black border-b-2 border-gray-200">
-            <img src="/media/SISTec-logo.png" class="h-16" alt="SISTec-logo">
-            <div id="nav-links"
-                class="flex gap-16 text-[20px] font-[gilroy] font-semibold absolute top-[70%] left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                <a href="/home" class="text-black">Home</a>
-                <a href="" class="text-black">Prototype</a>
-                <a href="" class="text-black">Final Report</a>
-                <a href="" class="text-black">About</a>
-                <a href="" class="text-black">Contact</a>
-            </div>
-            <div class="profile-icon-cont">
-                <a href="/userProfile">
+  <nav class="px-12 pt-8 pb-3 flex items-end justify-between relative bg-white text-black border-b-2 border-gray-200">
+    <div id="nav-links"
+      class="flex gap-16 text-[20px] font-[gilroy] font-semibold absolute top-[70%] left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+      <img src="/media/Final Logo.png" alt="Logo" style="height: 100px;">
+    </div>
+    <div class="profile-icon-cont">
+      <i class="ri-user-3-line cursor-pointer text-4xl"></i>
+    </div>
+    
+    <div class="toggleBtn cursor-pointer">
+      <!-- <i class="ri-menu-line"></i>
+      <i class="ri-close-large-line"></i> -->
+    </div>
+  </nav>
 
-                    <i class="ri-user-3-line cursor-pointer text-4xl"></i>
-                </a>
-            </div>
+  <div class="drop-down-menu text-lg font-[gilroy] font-semibold">
+    <!-- <i class="ri-user-3-line mt-5"></i> -->
+    <!-- <a href="/views/home.ejs" class="text-black">Home</a>
+    <a href="" class="text-black">Prototype</a>
+    <a href="" class="text-black">Final Report</a>
+    <a href="" class="text-black ">About</a>
+    <a href="" class="text-black ">Contact</a> -->
+  </div>
 
-            <div class="toggleBtn cursor-pointer">
-                <i class="ri-menu-line"></i>
-                <i class="ri-close-large-line"></i>
+  <div class="timeline-container mt-10">
+    <h2 class="text-4xl font-semibold text-[#3D50DF] text-center text-blue-700">Participate Registration</h2>
+    <div class="timeline mt-10">
+      <!-- Line connecting dots -->
+      <div class="line"></div>
+
+      <!-- Timeline items -->
+      <div class="timeline-item" id="registration-item" onclick="toggleInfo(this)">
+        <div class="dot"></div>
+        <div class="text-box">
+          <div class="text text-[#1E2772]">Registration</div>
+          <div class="info-box box1">
+            <div class="inp-cont">
+              <form action="/teamName" method="post" onsubmit="handleFormSubmit(event)">
+                <h2 class="font-medium">Team Details</h2>
+                <label for="teamName">Team name:</label>
+                <input type="text" name="teamName" id="teamName" placeholder="Enter your team name" required>
+                <button class="border border-black mt-2" type="submit">Submit Team Name</button>
+              </form>
+              
             </div>
-        </nav>
-        <div class="drop-down-menu text-lg font-[gilroy] font-semibold">
-            <i class="ri-user-3-line mt-5"></i>
-            <a href="/home" class="text-black">Home</a>
-            <a href="" class="text-black">Prototype</a>
-            <a href="" class="text-black">Final Report</a>
-            <a href="" class="text-black ">About</a>
-            <a href="" class="text-black ">Contact</a>
+          </div>
         </div>
+      </div>
 
-        <div class="pro-upper-cont-div">
-            <h1 class="text-4xl font-[Aldrich] text-[#1E2772] text-center mt-16">Share your Prototype</h1>
-            <div class="flex items-center justify-evenly mt-16">
-                <div class="flex flex-col items-center justify-center gap-2">
-                    <a href="" class="px-8 py-5 rounded-full bg-red-200 text-3xl font-[aldrich] font-bold">1</a>
-                    <h1 class="text-xl font-medium">Prototype</h1>
-                </div>
-                <div class="flex flex-col items-center justify-center gap-2">
-                    <a href="" class=" px-7 py-5 rounded-full bg-blue-100 text-3xl font-[aldrich] font-bold ">2</a>
-                    <h1 class="text-xl font-medium">Final Report</h1>
-                </div>
+      <div class="timeline-item" id="prototype-item" onclick="toggleInfo(this)">
+        <div class="dot"></div>
+        <div class="text-box">
+          <div class="pro-text text text-[#1E2772] flex items-center gap-2">Prototype Upload <span class="text-2xl text-[#3D50DF]"><i> (Image Link)</i></span></div>
+          <div class="info-box box2">
+            <div class="inp-cont">
+              <form action="/prototypelink" method="post" onsubmit="handleFormSubmit(event)">
+                <h2 class="font-semibold">Prototype:</h2>
+                <p class="mt-1 font-light text-lg text-gray-600">A prototype is a basic model of your project.</p>
+                <label for="prototype_link" class="inline-block mt-5">Prototype Link:</label>
+                <input type="text" name="prototype_link" id="prototype_link" placeholder="Enter your Prototype Link" required>
+                <button class="border border-black mt-2" type="submit">Submit Prototype Link</button>
+              </form>
+              
             </div>
+          </div>
         </div>
-        <section id="pro-content-con" class="px-32 py-16">
-            <div>
-                <h1 class="font-[gilroy] text-3xl font-bold">INSTRUCTIONS :</h1>
-                <p class="font-[gilroy] text-2xl mt-3 font-medium text-[#1E2772]">"Please upload your prototype file to
-                    Google Drive and share the link below</p>
-                <p class="font-[gilroy] text-2xl mt-1 font-medium text-[#1E2772]">Ensure the link is accessible to anyone
-                    with the link. "</p>
-            </div>
-            <div class="mt-10 flex flex-col gap-2">
-                <label for="prototype-link" class="text-[25px] font-semibold font-[gilroy] ">Prototype Link :</label>
-                <!-- Start of form -->
-                <form id="prototypeForm" action="/submit-prototype" method="POST">
-                    <input type="text" name="prototype-link" id="prototype-link"
-                        class="w-[100%] text-xl text-black outline-none border bg-gray-200 rounded-md px-6 py-3"
-                        placeholder="(e.g. https://google.drive.com/..)" required>
-                    <div class="flex items-center justify-center mt-8">
-                        <input type="submit" value="Submit"
-                            class="submit-btn shadow-dark px-16 text-xl font-medium py-3 bg-[#1E2772] text-white rounded-md cursor-pointer">
-                    </div>
-                </form>
-                <!-- End of form -->
-            </div>
-            <div class="mt-16">
-                <h1 class="font-bold text-3xl">"How to share the link ?"</h1>
-                <p class="text-2xl w-[60%] mt-3 text-[#1E2772] font-medium">" After uploading your file to Google Drive,
-                    click <span><i>'share'</i></span> and set the permission to <span><i>'Anyone with the link can
-                            view'</i></span> . "</p>
-            </div>
-        </section>
+      </div>
 
-        <section class="footer-main bg-[#1E2772] text-white">
-            <div class="footer-upper flex justify-between px-32 py-8 border-b border-gray-400">
-                <div>
-                    <h1 class="text-xl">Aadhar 2.O</h1>
-                    <div class="footer-links flex flex-col mt-10 gap-1 text-lg font-light">
-                        <a href="">Prize</a><a href="">Schedule</a><a href="">Rules</a>
-                    </div>
-                </div>
-                <div>
-                    <img src="/media/bottom-logo.png" alt="">
-                </div>
-                <div>
-                    <h1 class="text-xl">HELP</h1>
-                    <div class="footer-links flex flex-col mt-8 text-lg gap-1 font-light">
-                        <a href="">About</a>
-                        <a href="">Growers</a>
-                        <a href="">Merchants</a>
-                        <a href="">Partners</a>
-                        <a href="">Contact</a>
-                    </div>
-                </div>
+      <div class="timeline-item" id="report-item" onclick="toggleInfo(this)">
+        <div class="dot"></div>
+        <div class="text-box">
+          <div class="text text-[#1E2772]">Final Report</div>
+          <div class="info-box box3">
+            <div class="inp-cont">
+              <form action="/finalreport" method="post" onsubmit="handleFormSubmit(event)">
+                <h2 class="font-semibold">Final Report:</h2>
+                <p class="mt-1 font-light text-lg text-gray-600">A final report explains the results of a project.</p>
+                <label for="Final_Report_link" class="inline-block mt-5">Final Report Link:</label>
+                <input type="text" name="Final_Report_link" id="Final_Report_link" placeholder="Enter your Final Report Link" required>
+                <button class="border border-black mt-2" type="submit">Submit Final Report</button>
+              </form>
+              
             </div>
-            <div class="footer-lower flex items-center justify-between py-3 px-24">
-                <div>
-                    <i class="ri-twitter-fill text-white text-xl "></i>
-                    <i class="ri-instagram-fill text-white text-xl ml-3"></i>
-                    <i class="ri-facebook-box-fill text-white text-xl ml-3"></i>
-                </div>
-                <div class="flex gap-2">
-                    <i class="ri-copyright-line"></i>
-                    <h3>2020 Karcis incorporated</h3>
-                </div>
-            </div>
-        </section>
-    </main>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
-    <script>
-        const toggleBtn = document.querySelector('.toggleBtn');
-        const navLinks = document.getElementById('nav-links');
-        const dropDownMenu = document.querySelector('.drop-down-menu');
-        const menuIcon = document.querySelector('.ri-menu-line');
-        const closeIcon = document.querySelector('.ri-close-large-line');
+  <script>
+    // Toggle dropdown menu visibility
+    const toggleBtn = document.querySelector('.toggleBtn');
+    const navLinks = document.getElementById('nav-links');
+    const dropDownMenu = document.querySelector('.drop-down-menu');
+    const menuIcon = document.querySelector('.ri-menu-line');
+    const closeIcon = document.querySelector('.ri-close-large-line');
 
-        toggleBtn.onclick = () => {
-            dropDownMenu.classList.toggle('open');
-            const isOpen = dropDownMenu.classList.contains('open');
-            if (isOpen) {
-                menuIcon.style.display = 'none';
-                closeIcon.style.display = 'block';
-            } else {
-                menuIcon.style.display = 'block';
-                closeIcon.style.display = 'none';
-            }
+    toggleBtn.onclick = () => {
+      dropDownMenu.classList.toggle('open');
+      const isOpen = dropDownMenu.classList.contains('open');
+      if (isOpen) {
+        menuIcon.style.display = 'none';
+        closeIcon.style.display = 'block';
+      } else {
+        menuIcon.style.display = 'block';
+        closeIcon.style.display = 'none';
+      }
+    }
+
+    function toggleInfo(element) {
+      // Close all other info boxes
+      document.querySelectorAll('.timeline-item').forEach(item => {
+        if (item !== element) {
+          item.classList.remove('active');
         }
-    </script>
+      });
+
+      // Toggle the clicked info box
+      element.classList.toggle('active');
+    }
+
+    // Prevent click event from closing the info box when interacting with input field
+    function stopClickPropagation(event) {
+      event.stopPropagation();
+    }
+  </script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const registrationStatus = <%= JSON.stringify(registrationStatus) %>;
+    const driveStatus = <%= JSON.stringify(driveStatus) %>;
+    const reportStatus = <%= JSON.stringify(reportStatus) %>;
+
+    console.log("Statuses are passed");
+    console.log('Registration Status:', registrationStatus);
+    console.log('Drive Status:', driveStatus);
+    console.log('Report Status:', reportStatus);
+    
+    // Check registration status
+    if (registrationStatus) {
+      document.getElementById('registration-item').classList.add('success');
+    }
+
+    // Check drive status
+    if (driveStatus) {
+      document.getElementById('prototype-item').classList.add('success');
+    }
+
+    // Check report status
+    if (reportStatus) {
+      document.getElementById('report-item').classList.add('success');
+    }
+  });
+</script>
+
+<script>
+  document.getElementById('teamNameForm').addEventListener('submit', async (e) => {
+    e.preventDefault(); // Prevent default form submission
+
+    const teamName = document.getElementById('teamName').value;
+
+    try {
+      const response = await fetch('/api/teamName', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ teamName }),
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        alert(result.msg); // Display success message
+      } else {
+        alert(`Error: ${result.msg}`); // Display error message
+      }
+    } catch (error) {
+      alert('An unexpected error occurred.');
+      console.error(error);
+    }
+  });
+</script>
+
 </body>
 
 </html>
