@@ -10,7 +10,24 @@
   <link rel="stylesheet" href="/styles/style.css">
   <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
   <style>
-    
+     /* Logout button position */
+     .logout-btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      z-index: 10;
+    }
+
+    @media (max-width: 500px) {
+      .logout-btn {
+        top: 10px;
+        right: 10px;
+      }
+    }
+    .disabled {
+  pointer-events: none; /* Prevents clicks */
+  opacity: 0.9; /* Makes it look disabled */
+}
     .propage-input-container {
       display: flex;
       flex-direction: column;
@@ -160,7 +177,13 @@
   <div>
     <img src="media/Final Logo JPG.jpg" class="h-32 mx-auto" alt="">
   </div>
+   <!-- Logout Button -->
+    <a href="/logout">
 
+      <button id="logoutBtn" class="logout-btn bg-red-600 text-white px-4 py-2 rounded-md shadow-md hover:bg-red-700 focus:outline-none">
+        Logout
+      </button>
+    </a>
   <div class="timeline-container mt-10 px-4 sm:px-8">
     <h2 class="text-4xl font-semibold text-[#3D50DF] text-center text-blue-700">Participate Registration</h2>
     <div class="timeline mt-20">
@@ -282,6 +305,11 @@
     });
   </script>
 <script>
+   document.getElementById('logoutBtn').addEventListener('click', () => {
+      // Perform logout action (can be a redirect to a logout route or clear session storage)
+      alert('Logging out...');
+      window.location.href = '/logout'; // Example redirect to a logout endpoint
+    });
   // Generic form submission handler
   async function handleFormSubmit(event) {
     event.preventDefault();
@@ -349,16 +377,19 @@
     // Check registration status
     if (registrationStatus) {
       document.getElementById('registration-item').classList.add('success');
+      document.getElementById('registration-item').classList.add('disabled');
     }
 
     // Check drive status
     if (driveStatus) {
       document.getElementById('prototype-item').classList.add('success');
+      document.getElementById('prototype-item').classList.add('disabled');
     }
 
     // Check report status
     if (reportStatus) {
       document.getElementById('report-item').classList.add('success');
+document.getElementById('report-item').classList.add('disabled');
     }
   });
 </script>
