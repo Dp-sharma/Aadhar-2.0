@@ -147,7 +147,7 @@
   }
   @media (max-width: 1300px){
     button.btn{
-      width: 30%;
+      width: 100%;
     }
     .timeline-container .timeline-item input{
       width: 60%;
@@ -272,6 +272,116 @@
       });
     });
   </script>
+<script>
+  // Generic form submission handler
+  async function handleFormSubmit(event) {
+    event.preventDefault();
+
+    const form = event.target;
+    const formData = new FormData(form);
+    const data = Object.fromEntries(formData.entries());
+    const errorMessage = form.querySelector('.error-message') || document.createElement('p');
+    const successMessage = form.querySelector('.success-message') || document.createElement('p');
+
+    // Ensure error and success message containers exist
+    if (!form.querySelector('.error-message')) {
+      errorMessage.classList.add('error-message', 'text-red-500', 'mt-2');
+      form.appendChild(errorMessage);
+    }
+
+    if (!form.querySelector('.success-message')) {
+      successMessage.classList.add('success-message', 'text-green-500', 'mt-2');
+      form.appendChild(successMessage);
+    }
+
+    // Clear previous messages
+    errorMessage.textContent = '';
+    successMessage.textContent = '';
+
+    try {
+      const response = await fetch(form.action, {
+        method: form.method,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+
+      const contentType = response.headers.get('Content-Type');
+
+      if (!response.ok) {
+        if (contentType && contentType.includes('application/json')) {
+          const result = await response.json();
+          throw new Error(result.msg || 'An error occurred while processing your request.');
+        } else {
+          throw new Error('Unexpected response from the server.');
+        }
+      }
+
+      const result = await response.json();
+      successMessage.textContent = result.msg || 'Submitted successfully!';
+    } catch (error) {
+      errorMessage.textContent = error.message;
+    }
+  }
+</script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const registrationStatus = <%= JSON.stringify(registrationStatus) %>;
+    const driveStatus = <%= JSON.stringify(driveStatus) %>;
+    const reportStatus = <%= JSON.stringify(reportStatus) %>;
+
+    console.log("Statuses are passed");
+    console.log('Registration Status:', registrationStatus);
+    console.log('Drive Status:', driveStatus);
+    console.log('Report Status:', reportStatus);
+    
+    // Check registration status
+    if (registrationStatus) {
+      document.getElementById('registration-item').classList.add('success');
+    }
+
+    // Check drive status
+    if (driveStatus) {
+      document.getElementById('prototype-item').classList.add('success');
+    }
+
+    // Check report status
+    if (reportStatus) {
+      document.getElementById('report-item').classList.add('success');
+    }
+  });
+</script>
+
+<script>
+  document.getElementById('teamNameForm').addEventListener('submit', async (e) => {
+    e.preventDefault(); // Prevent default form submission
+
+    const teamName = document.getElementById('teamName').value;
+
+    try {
+      const response = await fetch('/api/teamName', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ teamName }),
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        alert(result.msg); // Display success message
+      } else {
+        alert(`Error: ${result.msg}`); // Display error message
+      }
+    } catch (error) {
+      alert('An unexpected error occurred.');
+      console.error(error);
+    }
+  });
+</script>
 </body>
 
 </html>
