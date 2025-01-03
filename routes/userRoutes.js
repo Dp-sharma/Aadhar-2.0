@@ -64,6 +64,10 @@ app.get('/profile',auth,profile_complete, (req, res) => {
     console.log('rendering the about page')
     res.render("about");
 });
+  app.get("/mentor",(req, res) => {
+    console.log('rendering the mentor page')
+    res.render("mentor");
+});
   app.get("/participant",participantdata,(req, res) => {
     console.log('rendering the participantData page')
     res.render("admin/participantdata", { participantData: res.locals.participantData });
