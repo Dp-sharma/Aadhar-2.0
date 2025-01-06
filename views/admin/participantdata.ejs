@@ -1,71 +1,213 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Participant Data</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/tablehtmlexport@1.0.4/dist/jquery.tableHTMLExport.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" 
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" 
+        crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.4.1/jspdf.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/2.3.5/jspdf.plugin.autotable.min.js"></script>
+
+  <script>
+    // Define the correct password
+    const correctPassword = 'aadhar2024event'; // Replace this with your desired password
+
+    // Function to prompt for password on page load
+    window.onload = function() {
+      const enteredPassword = prompt("Please enter the password to view the content:");
+
+      if (enteredPassword === correctPassword) {
+        // Password correct, show the page content
+        document.getElementById("main-content").style.display = "block"; // Display the main content
+      } else {
+        // Password incorrect, redirect to another page (or show an error)
+        alert("Incorrect password. Redirecting...");
+        window.location.href = 'https://www.example.com'; // Redirect to a different URL (can be your error page or home page)
+      }
+    };
+
+    // Function to filter rows by TeamName
+    function filterTeamName() {
+      const filterValue = document.getElementById("teamNameFilter").value.toLowerCase();
+      const rows = document.querySelectorAll("tbody tr");
+
+      rows.forEach(row => {
+        const teamName = row.querySelector("td:nth-child(2)").textContent.trim().toLowerCase();
+        // If teamName is not "N/A" and matches the filter value, show the row, otherwise hide it
+        if (teamName !== "n/a" && teamName.includes(filterValue)) {
+          row.style.display = "";
+        } else {
+          row.style.display = "none";
+        }
+      });
+    }
+
+    // Function to download the table as PDF using jsPDF autotable
+    function downloadPDF() {
+      const doc = new jsPDF();
+      const table = document.getElementById('participantTable');
+      
+      // Prepare the data for jsPDF autotable
+      const tableData = [];
+      const headers = [];
+
+      // Get table headers
+      const headerCells = table.querySelectorAll('thead th');
+      headerCells.forEach(header => {
+        headers.push(header.textContent.trim());
+      });
+
+      // Get table rows (excluding the header row)
+      const rows = table.querySelectorAll('tbody tr');
+      let serialNumber = 1; // Start serial number from 1
+      rows.forEach(row => {
+        const rowData = {};
+        const cells = row.querySelectorAll('td');
+        
+        // Assign serial number as the first cell
+        rowData['Serial No'] = serialNumber++;
+        
+        // Loop through each cell in the row and map it to the correct header
+        cells.forEach((cell, index) => {
+          if (index > 0) { // Skip the Serial No column in headers
+            rowData[headers[index]] = cell.textContent.trim();
+          }
+        });
+
+        // Add the row data to tableData
+        tableData.push(rowData);
+      });
+
+      // Ensure we have data before trying to generate the table
+      if (tableData.length > 0) {
+        doc.autoTable({
+          head: [['Serial No', ...headers.slice(1)]], // Add 'Serial No' to the headers
+          body: tableData,
+          theme: 'striped', // Optional: striped style
+          startY: 20, // Start position for the table
+          margin: { top: 10 }, // Top margin
+          tableWidth: 'auto', // Auto table width
+        });
+
+        // Save the PDF
+        doc.save('ParticipantData.pdf');
+      } else {
+        alert("No data to export.");
+      }
+    }
+  </script>
 </head>
+
 <body class="bg-gray-900 text-gray-100 font-sans">
-  <div class="container mx-auto p-4">
-    <h1 class="text-2xl font-bold text-center mb-6">Participant Data</h1>
-    <div class="overflow-x-auto">
-      <table class="w-full table-auto border-collapse border border-gray-700">
-        <thead>
-          <tr class="bg-gray-800">
-            <th class="border border-gray-700 px-4 py-2">ID</th>
-            <th class="border border-gray-700 px-4 py-2">Gender</th>
-            <th class="border border-gray-700 px-4 py-2">Name</th>
-            <th class="border border-gray-700 px-4 py-2">Email</th>
-            <th class="border border-gray-700 px-4 py-2">Year</th>
-            <th class="border border-gray-700 px-4 py-2">Branch</th>
-            <th class="border border-gray-700 px-4 py-2">Section</th>
-            <th class="border border-gray-700 px-4 py-2">Roll No</th>
-            <th class="border border-gray-700 px-4 py-2">Category</th>
-            <th class="border border-gray-700 px-4 py-2">Contact</th>
-            <th class="border border-gray-700 px-4 py-2">Team Member Name</th>
-            <th class="border border-gray-700 px-4 py-2">Team Member Branch</th>
-            <th class="border border-gray-700 px-4 py-2">Team Member Email</th>
-            <th class="border border-gray-700 px-4 py-2">Team Member Roll No</th>
-            <th class="border border-gray-700 px-4 py-2">Team Member Gender</th>
-            <th class="border border-gray-700 px-4 py-2">Team Member Year</th>
-            <th class="border border-gray-700 px-4 py-2">Team Member Section</th>
-            <th class="border border-gray-700 px-4 py-2">Team Member Mobile No</th>
-            <th class="border border-gray-700 px-4 py-2">Team Member Category</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% participantData.forEach(participant => { %>
-            <% const maxMembers = Math.max(participant.teamMembers?.length || 0, 1); %>
-            <% for (let i = 0; i < maxMembers; i++) { %>
-              <tr class="<%= i % 2 === 0 ? 'bg-gray-700' : 'bg-gray-800' %>">
-                <% if (i === 0) { %>
-                  <td rowspan="<%= maxMembers %>" class="border border-gray-700 px-4 py-2"><%= participant._id %></td>
-                  <td rowspan="<%= maxMembers %>" class="border border-gray-700 px-4 py-2"><%= participant.gender %></td>
-                  <td rowspan="<%= maxMembers %>" class="border border-gray-700 px-4 py-2"><%= participant.fullName %></td>
-                  <td rowspan="<%= maxMembers %>" class="border border-gray-700 px-4 py-2"><%= participant.email %></td>
-                  <td rowspan="<%= maxMembers %>" class="border border-gray-700 px-4 py-2"><%= participant.year %></td>
-                  <td rowspan="<%= maxMembers %>" class="border border-gray-700 px-4 py-2"><%= participant.branch %></td>
-                  <td rowspan="<%= maxMembers %>" class="border border-gray-700 px-4 py-2"><%= participant.section %></td>
-                  <td rowspan="<%= maxMembers %>" class="border border-gray-700 px-4 py-2"><%= participant.rollNo %></td>
-                  <td rowspan="<%= maxMembers %>" class="border border-gray-700 px-4 py-2"><%= participant.category %></td>
-                  <td rowspan="<%= maxMembers %>" class="border border-gray-700 px-4 py-2"><%= participant.mobileNo %></td>
-                <% } %>
-                <td class="border border-gray-700 px-4 py-2"><%= participant.teamMembers?.[i]?.fullName || "N/A" %></td>
-                <td class="border border-gray-700 px-4 py-2"><%= participant.teamMembers?.[i]?.branch || "N/A" %></td>
-                <td class="border border-gray-700 px-4 py-2"><%= participant.teamMembers?.[i]?.email || "N/A" %></td>
-                <td class="border border-gray-700 px-4 py-2"><%= participant.teamMembers?.[i]?.rollNo || "N/A" %></td>
-                <td class="border border-gray-700 px-4 py-2"><%= participant.teamMembers?.[i]?.gender || "N/A" %></td>
-                <td class="border border-gray-700 px-4 py-2"><%= participant.teamMembers?.[i]?.year || "N/A" %></td>
-                <td class="border border-gray-700 px-4 py-2"><%= participant.teamMembers?.[i]?.section || "N/A" %></td>
-                <td class="border border-gray-700 px-4 py-2"><%= participant.teamMembers?.[i]?.mobileNo || "N/A" %></td>
-                <td class="border border-gray-700 px-4 py-2"><%= participant.teamMembers?.[i]?.category || "N/A" %></td>
-              </tr>
-            <% } %>
-          <% }); %>
-        </tbody>
-      </table>
+  <!-- Main content is hidden by default, shown only after successful password entry -->
+  <div id="main-content" style="display: none;">
+    <div class="container mx-auto p-4">
+      <h1 class="text-2xl font-bold text-center mb-6">Participant Data</h1>
+
+      <!-- Filter Input for TeamName -->
+      <div class="mb-4 flex justify-center">
+        <!-- <input
+          type="text"
+          id="teamNameFilter"
+          oninput="filterTeamName()"
+          class="px-4 py-2 border border-gray-700 rounded bg-gray-800 text-gray-100"
+          placeholder="Filter by Team Name"
+        /> -->
+      </div>
+
+      <!-- Download Button -->
+      <div class="mb-4 flex justify-center">
+        <!-- <button
+          onclick="downloadPDF()"
+          class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded"
+        >
+          Download as PDF
+        </button> -->
+      </div>
+
+      <div class="overflow-x-auto">
+        <table id="participantTable" class="w-full table-auto border-collapse border border-gray-700">
+          <thead>
+            <tr class="bg-gray-800">
+              <th class="border border-gray-700 px-4 py-2">Serial No</th> <!-- Add Serial No header -->
+              <th class="border border-gray-700 px-4 py-2">TeamName</th>
+              <th class="border border-gray-700 px-4 py-2">Prototype</th>
+              <th class="border border-gray-700 px-4 py-2">FinalReport</th>
+              <th class="border border-gray-700 px-4 py-2">Gender</th>
+              <th class="border border-gray-700 px-4 py-2">Name</th>
+              <th class="border border-gray-700 px-4 py-2">Email</th>
+              <th class="border border-gray-700 px-4 py-2">Year</th>
+              <th class="border border-gray-700 px-4 py-2">Branch</th>
+              <th class="border border-gray-700 px-4 py-2">Section</th>
+              <th class="border border-gray-700 px-4 py-2">Roll No</th>
+              <th class="border border-gray-700 px-4 py-2">Category</th>
+              <th class="border border-gray-700 px-4 py-2">Contact</th>
+              <th class="border border-gray-700 px-4 py-2">Team Member Name</th>
+              <th class="border border-gray-700 px-4 py-2">Team Member Branch</th>
+              <th class="border border-gray-700 px-4 py-2">Team Member Email</th>
+              <th class="border border-gray-700 px-4 py-2">Team Member Roll No</th>
+              <th class="border border-gray-700 px-4 py-2">Team Member Gender</th>
+              <th class="border border-gray-700 px-4 py-2">Team Member Year</th>
+              <th class="border border-gray-700 px-4 py-2">Team Member Section</th>
+              <th class="border border-gray-700 px-4 py-2">Team Member Mobile No</th>
+              <th class="border border-gray-700 px-4 py-2">Team Member Category</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% participantData.forEach((participant, index) => { %>
+              <% const maxMembers = Math.max(participant.teamMembers?.length || 0, 1); %>
+              <% for (let i = 0; i < maxMembers; i++) { %>
+                <tr class="<%= i % 2 === 0 ? 'bg-gray-700' : 'bg-gray-800' %>">
+                  <% if (i === 0) { %>
+                    <td rowspan="<%= maxMembers %>" class="border border-gray-700 px-4 py-2"><%= index + 1 %></td> <!-- Add Serial No -->
+                    <td rowspan="<%= maxMembers %>" class="border border-gray-700 px-4 py-2"><%= participant.TeamName || "N/A" %></td>
+                    <td rowspan="<%= maxMembers %>" class="border border-gray-700 px-4 py-2">
+                      <% if (participant.googleDriveLink) { %>
+                        <a href="<%= participant.googleDriveLink %>" target="_blank">Open</a>
+                      <% } else { %>
+                        N/A
+                      <% } %>
+                    </td>
+                    <td rowspan="<%= maxMembers %>" class="border border-gray-700 px-4 py-2">
+                      <% if (participant.finalReportLink) { %>
+                        <a href="<%= participant.finalReportLink %>" target="_blank">Open</a>
+                      <% } else { %>
+                        N/A
+                      <% } %>
+                    </td>
+                    <td rowspan="<%= maxMembers %>" class="border border-gray-700 px-4 py-2"><%= participant.gender %></td>
+                    <td rowspan="<%= maxMembers %>" class="border border-gray-700 px-4 py-2"><%= participant.fullName %></td>
+                    <td rowspan="<%= maxMembers %>" class="border border-gray-700 px-4 py-2"><%= participant.email %></td>
+                    <td rowspan="<%= maxMembers %>" class="border border-gray-700 px-4 py-2"><%= participant.year %></td>
+                    <td rowspan="<%= maxMembers %>" class="border border-gray-700 px-4 py-2"><%= participant.branch %></td>
+                    <td rowspan="<%= maxMembers %>" class="border border-gray-700 px-4 py-2"><%= participant.section %></td>
+                    <td rowspan="<%= maxMembers %>" class="border border-gray-700 px-4 py-2"><%= participant.rollNo %></td>
+                    <td rowspan="<%= maxMembers %>" class="border border-gray-700 px-4 py-2"><%= participant.category %></td>
+                    <td rowspan="<%= maxMembers %>" class="border border-gray-700 px-4 py-2"><%= participant.mobileNo %></td>
+                  <% } %>
+                  <td class="border border-gray-700 px-4 py-2"><%= participant.teamMembers?.[i]?.fullName || "N/A" %></td>
+                  <td class="border border-gray-700 px-4 py-2"><%= participant.teamMembers?.[i]?.branch || "N/A" %></td>
+                  <td class="border border-gray-700 px-4 py-2"><%= participant.teamMembers?.[i]?.email || "N/A" %></td>
+                  <td class="border border-gray-700 px-4 py-2"><%= participant.teamMembers?.[i]?.rollNo || "N/A" %></td>
+                  <td class="border border-gray-700 px-4 py-2"><%= participant.teamMembers?.[i]?.gender || "N/A" %></td>
+                  <td class="border border-gray-700 px-4 py-2"><%= participant.teamMembers?.[i]?.year || "N/A" %></td>
+                  <td class="border border-gray-700 px-4 py-2"><%= participant.teamMembers?.[i]?.section || "N/A" %></td>
+                  <td class="border border-gray-700 px-4 py-2"><%= participant.teamMembers?.[i]?.mobileNo || "N/A" %></td>
+                  <td class="border border-gray-700 px-4 py-2"><%= participant.teamMembers?.[i]?.category || "N/A" %></td>
+                </tr>
+              <% } %>
+            <% }); %>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 </body>
+
 </html>
