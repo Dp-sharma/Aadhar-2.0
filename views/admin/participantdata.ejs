@@ -8,9 +8,9 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/tablehtmlexport@1.0.4/dist/jquery.tableHTMLExport.min.js"></script>
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" 
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" 
-        crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.4.1/jspdf.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/2.3.5/jspdf.plugin.autotable.min.js"></script>
 
@@ -19,7 +19,7 @@
     const correctPassword = 'aadhar2024event'; // Replace this with your desired password
 
     // Function to prompt for password on page load
-    window.onload = function() {
+    window.onload = function () {
       const enteredPassword = prompt("Please enter the password to view the content:");
 
       if (enteredPassword === correctPassword) {
@@ -31,10 +31,26 @@
         window.location.href = 'https://www.example.com'; // Redirect to a different URL (can be your error page or home page)
       }
     };
+    function countVisibleRows() {
+      const rows = document.querySelectorAll("tbody tr");
+      let visibleRowsCount = 0;
 
+      rows.forEach(row => {
+        if (row.style.display !== "none") {
+          visibleRowsCount++;
+        }
+      });
+
+      console.log("Visible Rows Count:", visibleRowsCount);
+
+      // Optionally display the count on the webpage:
+      document.getElementById("rowCount").textContent = `Total Student: ${visibleRowsCount}`;
+    }
     // Function to filter rows by TeamName
     function filterTeamName() {
-      const filterValue = document.getElementById("teamNameFilter").value.toLowerCase();
+      // const filterValue = document.getElementById("teamNameFilter").value.toLowerCase();
+      const filterValue = "";
+
       const rows = document.querySelectorAll("tbody tr");
 
       rows.forEach(row => {
@@ -46,61 +62,148 @@
           row.style.display = "none";
         }
       });
+      countVisibleRows();
     }
+    function filterPrototype() {
+      // const filterValue = document.getElementById("teamNameFilter").value.toLowerCase();
+      const filterValue = "";
 
-    // Function to download the table as PDF using jsPDF autotable
-    function downloadPDF() {
-      const doc = new jsPDF();
-      const table = document.getElementById('participantTable');
-      
-      // Prepare the data for jsPDF autotable
-      const tableData = [];
-      const headers = [];
+      const rows = document.querySelectorAll("tbody tr");
 
-      // Get table headers
-      const headerCells = table.querySelectorAll('thead th');
-      headerCells.forEach(header => {
-        headers.push(header.textContent.trim());
-      });
-
-      // Get table rows (excluding the header row)
-      const rows = table.querySelectorAll('tbody tr');
-      let serialNumber = 1; // Start serial number from 1
       rows.forEach(row => {
-        const rowData = {};
-        const cells = row.querySelectorAll('td');
-        
-        // Assign serial number as the first cell
-        rowData['Serial No'] = serialNumber++;
-        
-        // Loop through each cell in the row and map it to the correct header
-        cells.forEach((cell, index) => {
-          if (index > 0) { // Skip the Serial No column in headers
-            rowData[headers[index]] = cell.textContent.trim();
-          }
-        });
+        const prototype = row.querySelector("td:nth-child(3)").textContent.trim().toLowerCase();
+        // If teamName is not "N/A" and matches the filter value, show the row, otherwise hide it
+        if (prototype !== "n/a" && prototype.includes(filterValue)) {
+          row.style.display = "";
+        } else {
+          row.style.display = "none";
+        }
+      });
+      countVisibleRows();
+    }
+    function filterBoth() {
+      const filterTeamValue = ""; // You can change this to capture a value for TeamName if needed
+      const filterPrototypeValue = ""; // You can change this to capture a value for Prototype if needed
 
-        // Add the row data to tableData
-        tableData.push(rowData);
+      const rows = document.querySelectorAll("tbody tr");
+
+      rows.forEach(row => {
+        const teamName = row.querySelector("td:nth-child(2)").textContent.trim().toLowerCase();
+        const prototype = row.querySelector("td:nth-child(3)").textContent.trim().toLowerCase();
+
+        // If both TeamName and Prototype match the filter values, show the row
+        if (
+          (teamName !== "n/a" && teamName.includes(filterTeamValue)) &&
+          (prototype !== "n/a" && prototype.includes(filterPrototypeValue))
+        ) {
+          row.style.display = "";
+        } else {
+          row.style.display = "none";
+        }
+      });
+      countVisibleRows();
+    }
+    function filterAll() {
+      const filterTeamValue = ""; // You can change this to capture a value for TeamName if needed
+      const filterPrototypeValue = ""; // You can change this to capture a value for Prototype if needed
+      const filterReportValue = ""; // You can change this to capture a value for Prototype if needed
+
+      const rows = document.querySelectorAll("tbody tr");
+
+      rows.forEach(row => {
+        const teamName = row.querySelector("td:nth-child(2)").textContent.trim().toLowerCase();
+        const prototype = row.querySelector("td:nth-child(3)").textContent.trim().toLowerCase();
+        const finalreport = row.querySelector("td:nth-child(4)").textContent.trim().toLowerCase();
+
+        // If both TeamName and Prototype match the filter values, show the row
+        if (
+          (teamName !== "n/a" && teamName.includes(filterTeamValue)) &&
+          (prototype !== "n/a" && prototype.includes(filterPrototypeValue)) &&
+          (finalreport !== "n/a" && prototype.includes(filterPrototypeValue))
+        ) {
+          row.style.display = "";
+        } else {
+          row.style.display = "none";
+        }
+      });
+      countVisibleRows();
+    }
+    function resetFilter() {
+    // Reset the dropdown selection
+    document.getElementById("dropdown").value = "";
+
+    // Show all rows by setting display to "" (default)
+    const rows = document.querySelectorAll("tbody tr");
+    rows.forEach(row => {
+        row.style.display = ""; // Ensure all rows are visible
+    });
+
+    // Update the visible row count
+    countVisibleRows();
+}
+    function downloadPDF() {
+      const doc = new jsPDF('landscape'); // Landscape orientation
+      const table = document.getElementById('participantTable');
+
+      if (!table) {
+        console.error('Table not found');
+        return;
+      }
+
+      // Extract headers
+      const headers = Array.from(table.querySelectorAll('thead th')).map(header => header.textContent.trim());
+      if (!headers || headers.length === 0) {
+        console.error('No headers found in the table');
+        return;
+      }
+
+      // Extract rows
+      const rows = Array.from(table.querySelectorAll('tbody tr'));
+      const tableData = rows.map(row => {
+        return Array.from(row.querySelectorAll('td')).map(cell => cell.textContent.trim());
       });
 
-      // Ensure we have data before trying to generate the table
-      if (tableData.length > 0) {
+      if (!tableData || tableData.length === 0) {
+        console.error('No data rows found in the table');
+        return;
+      }
+
+      // Debugging
+      console.log('Headers:', headers);
+      console.log('Table Data:', tableData);
+
+      // Generate PDF with autoTable
+      try {
         doc.autoTable({
-          head: [['Serial No', ...headers.slice(1)]], // Add 'Serial No' to the headers
-          body: tableData,
-          theme: 'striped', // Optional: striped style
-          startY: 20, // Start position for the table
-          margin: { top: 10 }, // Top margin
-          tableWidth: 'auto', // Auto table width
+          head: [headers], // Pass headers as an array of arrays
+          body: tableData, // Pass table data as an array of arrays
+          theme: 'striped',
+          startY: 20,
+          margin: { top: 10 },
+          styles: { fontSize: 10 },
+          pageBreak: 'auto',
         });
 
-        // Save the PDF
-        doc.save('ParticipantData.pdf');
-      } else {
-        alert("No data to export.");
+        doc.save('ParticipantData.pdf'); // Save the PDF
+      } catch (error) {
+        console.error('Error generating PDF:', error);
       }
     }
+    function handleSelection(value) {
+            if (value === "option1") {
+              filterTeamName()
+            } else if (value === "option2") {
+              filterBoth()
+            } else if (value === "option3") {
+              filterAll()
+
+            } else {
+              resetFilter();
+                
+                
+            }
+        }
+
   </script>
 </head>
 
@@ -111,25 +214,43 @@
       <h1 class="text-2xl font-bold text-center mb-6">Participant Data</h1>
 
       <!-- Filter Input for TeamName -->
-      <div class="mb-4 flex justify-center">
-        <!-- <input
+      <!--<div class="mb-4 flex justify-center">
+         <input
           type="text"
           id="teamNameFilter"
           oninput="filterTeamName()"
           class="px-4 py-2 border border-gray-700 rounded bg-gray-800 text-gray-100"
           placeholder="Filter by Team Name"
-        /> -->
-      </div>
+        /> 
 
+        <button onclick="filterTeamName()" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded">
+          Filter by Team Name
+        </button>
+        <button onclick="filterPrototype()"
+          class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded">
+          Filter by Prototype
+        </button>
+        <button onclick="filterBoth()" class="px-4 py-2 bg-green-600 hover:bg-green-700 text-white font-bold rounded">
+          Filter by Both (Team Name & Prototype)
+        </button>
+        <button onclick="filterAll()" class="px-4 py-2 bg-green-600 hover:bg-green-700 text-white font-bold rounded">
+          Filter by All (Team Name & Prototype & FinalReport)
+        </button>
+      </div>-->
+      <select id="dropdown" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded" onchange="handleSelection(this.value)">
+        <option value="">--Filter--</option>
+        <option value="option1">Team Name</option>
+        <option value="option2">Prototype</option>
+        <option value="option3">FinalReport</option>
+    </select>
       <!-- Download Button -->
-      <div class="mb-4 flex justify-center">
-        <!-- <button
-          onclick="downloadPDF()"
-          class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded"
-        >
+      <!-- <div class="mb-4 flex justify-center">
+        <button onclick="downloadPDF()" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded">
           Download as PDF
-        </button> -->
-      </div>
+        </button>
+      </div> -->
+      <!-- Add this somewhere in your HTML, preferably near the table -->
+      <div id="rowCount" class="text-center text-white mb-4"></div>
 
       <div class="overflow-x-auto">
         <table id="participantTable" class="w-full table-auto border-collapse border border-gray-700">
@@ -160,49 +281,89 @@
             </tr>
           </thead>
           <tbody>
-            <% participantData.forEach((participant, index) => { %>
-              <% const maxMembers = Math.max(participant.teamMembers?.length || 0, 1); %>
-              <% for (let i = 0; i < maxMembers; i++) { %>
-                <tr class="<%= i % 2 === 0 ? 'bg-gray-700' : 'bg-gray-800' %>">
-                  <% if (i === 0) { %>
-                    <td rowspan="<%= maxMembers %>" class="border border-gray-700 px-4 py-2"><%= index + 1 %></td> <!-- Add Serial No -->
-                    <td rowspan="<%= maxMembers %>" class="border border-gray-700 px-4 py-2"><%= participant.TeamName || "N/A" %></td>
-                    <td rowspan="<%= maxMembers %>" class="border border-gray-700 px-4 py-2">
-                      <% if (participant.googleDriveLink) { %>
-                        <a href="<%= participant.googleDriveLink %>" target="_blank">Open</a>
-                      <% } else { %>
-                        N/A
+            <% participantData.forEach((participant, index)=> { %>
+              <% const maxMembers=Math.max(participant.teamMembers?.length || 0, 1); %>
+                <% for (let i=0; i < maxMembers; i++) { %>
+                  <tr class="<%= i % 2 === 0 ? 'bg-gray-700' : 'bg-gray-800' %>">
+                    <% if (i===0) { %>
+                      <td rowspan="<%= maxMembers %>" class="border border-gray-700 px-4 py-2">
+                        <%= index + 1 %>
+                      </td> <!-- Add Serial No -->
+                      <td rowspan="<%= maxMembers %>" class="border border-gray-700 px-4 py-2">
+                        <%= participant.TeamName || "N/A" %>
+                      </td>
+                      <td rowspan="<%= maxMembers %>" class="border border-gray-700 px-4 py-2">
+                        <% if (participant.googleDriveLink) { %>
+                          <a href="<%= participant.googleDriveLink %>" target="_blank">Open</a>
+                          <% } else { %>
+                            N/A
+                            <% } %>
+                      </td>
+                      <td rowspan="<%= maxMembers %>" class="border border-gray-700 px-4 py-2">
+                        <% if (participant.finalReportLink) { %>
+                          <a href="<%= participant.finalReportLink %>" target="_blank">Open</a>
+                          <% } else { %>
+                            N/A
+                            <% } %>
+                      </td>
+                      <td rowspan="<%= maxMembers %>" class="border border-gray-700 px-4 py-2">
+                        <%= participant.gender %>
+                      </td>
+                      <td rowspan="<%= maxMembers %>" class="border border-gray-700 px-4 py-2">
+                        <%= participant.fullName %>
+                      </td>
+                      <td rowspan="<%= maxMembers %>" class="border border-gray-700 px-4 py-2">
+                        <%= participant.email %>
+                      </td>
+                      <td rowspan="<%= maxMembers %>" class="border border-gray-700 px-4 py-2">
+                        <%= participant.year %>
+                      </td>
+                      <td rowspan="<%= maxMembers %>" class="border border-gray-700 px-4 py-2">
+                        <%= participant.branch %>
+                      </td>
+                      <td rowspan="<%= maxMembers %>" class="border border-gray-700 px-4 py-2">
+                        <%= participant.section %>
+                      </td>
+                      <td rowspan="<%= maxMembers %>" class="border border-gray-700 px-4 py-2">
+                        <%= participant.rollNo %>
+                      </td>
+                      <td rowspan="<%= maxMembers %>" class="border border-gray-700 px-4 py-2">
+                        <%= participant.category %>
+                      </td>
+                      <td rowspan="<%= maxMembers %>" class="border border-gray-700 px-4 py-2">
+                        <%= participant.mobileNo %>
+                      </td>
                       <% } %>
-                    </td>
-                    <td rowspan="<%= maxMembers %>" class="border border-gray-700 px-4 py-2">
-                      <% if (participant.finalReportLink) { %>
-                        <a href="<%= participant.finalReportLink %>" target="_blank">Open</a>
-                      <% } else { %>
-                        N/A
-                      <% } %>
-                    </td>
-                    <td rowspan="<%= maxMembers %>" class="border border-gray-700 px-4 py-2"><%= participant.gender %></td>
-                    <td rowspan="<%= maxMembers %>" class="border border-gray-700 px-4 py-2"><%= participant.fullName %></td>
-                    <td rowspan="<%= maxMembers %>" class="border border-gray-700 px-4 py-2"><%= participant.email %></td>
-                    <td rowspan="<%= maxMembers %>" class="border border-gray-700 px-4 py-2"><%= participant.year %></td>
-                    <td rowspan="<%= maxMembers %>" class="border border-gray-700 px-4 py-2"><%= participant.branch %></td>
-                    <td rowspan="<%= maxMembers %>" class="border border-gray-700 px-4 py-2"><%= participant.section %></td>
-                    <td rowspan="<%= maxMembers %>" class="border border-gray-700 px-4 py-2"><%= participant.rollNo %></td>
-                    <td rowspan="<%= maxMembers %>" class="border border-gray-700 px-4 py-2"><%= participant.category %></td>
-                    <td rowspan="<%= maxMembers %>" class="border border-gray-700 px-4 py-2"><%= participant.mobileNo %></td>
+                        <td class="border border-gray-700 px-4 py-2">
+                          <%= participant.teamMembers?.[i]?.fullName || "N/A" %>
+                        </td>
+                        <td class="border border-gray-700 px-4 py-2">
+                          <%= participant.teamMembers?.[i]?.branch || "N/A" %>
+                        </td>
+                        <td class="border border-gray-700 px-4 py-2">
+                          <%= participant.teamMembers?.[i]?.email || "N/A" %>
+                        </td>
+                        <td class="border border-gray-700 px-4 py-2">
+                          <%= participant.teamMembers?.[i]?.rollNo || "N/A" %>
+                        </td>
+                        <td class="border border-gray-700 px-4 py-2">
+                          <%= participant.teamMembers?.[i]?.gender || "N/A" %>
+                        </td>
+                        <td class="border border-gray-700 px-4 py-2">
+                          <%= participant.teamMembers?.[i]?.year || "N/A" %>
+                        </td>
+                        <td class="border border-gray-700 px-4 py-2">
+                          <%= participant.teamMembers?.[i]?.section || "N/A" %>
+                        </td>
+                        <td class="border border-gray-700 px-4 py-2">
+                          <%= participant.teamMembers?.[i]?.mobileNo || "N/A" %>
+                        </td>
+                        <td class="border border-gray-700 px-4 py-2">
+                          <%= participant.teamMembers?.[i]?.category || "N/A" %>
+                        </td>
+                  </tr>
                   <% } %>
-                  <td class="border border-gray-700 px-4 py-2"><%= participant.teamMembers?.[i]?.fullName || "N/A" %></td>
-                  <td class="border border-gray-700 px-4 py-2"><%= participant.teamMembers?.[i]?.branch || "N/A" %></td>
-                  <td class="border border-gray-700 px-4 py-2"><%= participant.teamMembers?.[i]?.email || "N/A" %></td>
-                  <td class="border border-gray-700 px-4 py-2"><%= participant.teamMembers?.[i]?.rollNo || "N/A" %></td>
-                  <td class="border border-gray-700 px-4 py-2"><%= participant.teamMembers?.[i]?.gender || "N/A" %></td>
-                  <td class="border border-gray-700 px-4 py-2"><%= participant.teamMembers?.[i]?.year || "N/A" %></td>
-                  <td class="border border-gray-700 px-4 py-2"><%= participant.teamMembers?.[i]?.section || "N/A" %></td>
-                  <td class="border border-gray-700 px-4 py-2"><%= participant.teamMembers?.[i]?.mobileNo || "N/A" %></td>
-                  <td class="border border-gray-700 px-4 py-2"><%= participant.teamMembers?.[i]?.category || "N/A" %></td>
-                </tr>
-              <% } %>
-            <% }); %>
+                    <% }); %>
           </tbody>
         </table>
       </div>
